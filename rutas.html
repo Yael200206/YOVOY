@@ -1,0 +1,1875 @@
+
+
+<!DOCTYPE html>
+
+<html lang="es-ES">
+<head>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131034028-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-131034028-1');
+    </script>
+
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Estudios Alux">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">   
+    <meta name="description" content="El Rutero Aguascalientes cuenta con las rutas de transporte de tu ciudad, obtén una ruta directa a tu destino, busca tu ruta y consúltala, ademas de un directorio de negocios y sitios turisticos El Rutero : Busca tu ruta Rutas Aguascalientes ">
+    <meta name="keywords" content="El Rutero Aguascalientes, el rutero morelia, rutas gdl, rutas leon, rutas queretaro, rutas puebla, rutas transporte, transporte, combis, tren, metrobus, tren ligero,busca tu ruta  ruta directa">
+    
+    <meta property="og:title" content="El Rutero" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://elrutero.com.mx" /> 
+    <meta property="og:image" content="https://elrutero.com.mx/public/img/fb_elRutero.png" />
+	<meta property="og:site_name" content="elrutero.com.mx" />
+    <meta property="og:description" content="El Rutero Aguascalientes cuenta con las rutas de transporte de tu ciudad, obtén una ruta directa a tu destino, ademas de un directorio de negocios y sitios turisticos">
+    <meta property="fb:admins" content="100003720503624"/>
+    
+    <!--
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    -->
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+    integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+    crossorigin=""></script>
+
+
+    <!-- Load Esri Leaflet from CDN 
+    <script src="https://unpkg.com/esri-leaflet"></script>
+    -->
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"
+    integrity="sha512-YZ6b5bXRVwipfqul5krehD9qlbJzc6KOGXYsDjU9HHXW2gK57xmWl2gU6nAegiErAqFXhygKIsWPKbjLPXVb2g=="
+    crossorigin=""></script>
+
+
+    <!-- Esri Leaflet Geocoder 
+    
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/src/EsriLeafletGeocoding.js"></script>
+    -->
+
+    
+    <!-- Load Esri Leaflet Geocoder from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.css"
+    integrity="sha512-v5YmWLm8KqAAmg5808pETiccEohtt8rPVMGQ1jA6jqkWVydV5Cuz3nJ9fQ7ittSxvuqsvI9RSGfVoKPaAJZ/AQ=="
+    crossorigin="">
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js"
+    integrity="sha512-zdT4Pc2tIrc6uoYly2Wp8jh6EPEWaveqqD3sT0lf5yei19BC1WulGuh5CesB0ldBKZieKGD7Qyf/G0jdSe016A=="
+    crossorigin=""></script>
+
+    <link  href="https://unpkg.com/leaflet-geosearch@latest/assets/css/leaflet.css" rel="stylesheet" />
+    <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.63.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://www.domoritz.de/leaflet-locatecontrol/dist/L.Control.Locate.min.css" type="text/css">
+    
+    <!-- Gesture Leaflet 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+    <script src="https://unpkg.com/leaflet-gesture-handling"></script>
+    -->
+    <!-- Mapbox GL -->
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.14.3/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.14.3/mapbox-gl.js'></script>
+    <script src="https://unpkg.com/mapbox-gl-leaflet@0.0.3/leaflet-mapbox-gl.js"></script>
+
+    <link href="https://elrutero.com.mx/public/fonts/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="https://elrutero.com.mx/public/fonts/elegant-fonts.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900,400italic' rel='stylesheet' type='text/css'>
+    
+    <link rel="stylesheet" href="https://elrutero.com.mx/public/bootstrap/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="https://elrutero.com.mx/public/css/zabuto_calendar.min.css" type="text/css">
+    <link rel="stylesheet" href="https://elrutero.com.mx/public/css/owl.carousel.css" type="text/css">
+
+    <link rel="stylesheet" href="https://elrutero.com.mx/public/css/trackpad-scroll-emulator.css" type="text/css">
+    <link rel="stylesheet" href="https://elrutero.com.mx/public/css/style.css" type="text/css">
+
+    <title>El Rutero Aguascalientes : Rutas  Aguascalientes tu ruta directa, busca tu ruta y consúltala </title>  
+    <style>
+        .leaflet-touch .geocoder-control-input{
+            font-size: 16px !important;
+        }
+        .leaflet-right .leaflet-control {
+            margin-right: 4px;
+        }
+        .leaflet-left .leaflet-control {
+            margin-left: 4px;
+        }
+        .leaflet-control-scale{
+            display:none;
+        }
+        .leaflet-top {
+            top: 3px;
+        }
+        .input-group-prepend, input-group-append{
+            float:left;
+            height:100%;
+        }
+        .walk{
+            margin:0px !important;
+            padding:0px !important;
+            float:right !important;                        
+        }   
+        .walk button{
+            margin:0px !important;
+            padding:0px !important;
+            height:45px; 
+            width:45px; 
+            background:#ddd !important;           
+        }  
+
+        .walk input-group-append{
+            float:right !important;  
+        } 
+        .walk .form-control {
+            /*width:100% !important;*/
+            /* Firefox */
+            width: -moz-calc(100% - 90px) !important;
+            /* WebKit */
+            width: -webkit-calc(100% - 90px)  !important;
+            /* Opera */
+            width: -o-calc(100% - 90px)  !important;
+            /* Standard */
+            width: calc(100% - 90px)  !important;
+            float:left !important;
+            background:#fff !important;
+            color:#555 !important;
+            font-size: 16px !important;
+        }
+
+        .walk input{
+            padding:12px 0px !important;
+        }
+        .no-padding{            
+            padding:0px !important;
+        } 
+        .no-margin{
+            margin:0px !important;            
+        }  
+        
+        /* css to customize Leaflet default styles  */
+        .custom .leaflet-popup-tip,
+        .custom .leaflet-popup-content-wrapper {
+            background: #fff;
+            color: #333;
+        }
+        .modal-body{
+            max-height: -moz-calc(100vh - 150px);
+            max-height: -webkit-calc(100vh - 150px);
+            max-height: calc(100vh - 150px);
+            overflow-y: auto;
+        }
+
+        .geocoder-control-suggestion{
+            padding:3px 0px !important;
+            margin:0px !important;
+            top:0px !important;
+            height:20px !important;
+        }
+    </style> 
+</head>
+
+
+<header id="page-header">
+    <nav>
+        <div class="left">
+            <a href="https://elrutero.com.mx/Aguascalientes" class="brand">
+                <img style="height:34px !important" src="https://elrutero.com.mx/public/img/ruterologo.svg" alt="El Rutero Aguascalientes, tú ruta directa">
+            </a>
+        </div>
+        <!--end left-->
+        <div class="right">
+            <div class="primary-nav has-mega-menu">
+                <ul class="navigation">                
+                    
+                    <!--
+                    <li class="active has-child"><a href="#nav-homepages">Home</a>
+                        <div class="wrapper">
+                            <div id="nav-homepages" class="nav-wrapper">
+                                <ul>
+                                    <li><a href="index-map-version-1.html">Map Full Screen Sidebar Results</a></li>
+                                    <li><a href="index-map-version-2.html">Map Horizontal Form</a></li>
+                                    <li><a href="index-map-version-3.html">Map Full Screen Form in Sidebar</a></li>
+                                    <li><a href="index-map-version-4.html">Map Form Under</a></li>
+                                    <li><a href="index-map-version-5.html">Map Sidebar Grid</a></li>
+                                    <li><a href="index-map-version-6.html">Map Full Screen Collapse Form</a></li>
+                                    <li><a href="index-hero-version-1.html">Hero One Input Form</a></li>
+                                    <li><a href="index-hero-version-2.html">Hero Multiple Inputs</a></li>
+                                    <li><a href="index-hero-version-3.html">Hero Form Under</a></li>
+                                    <li><a href="index-hero-version-4.html">Hero Full Screen Slider</a></li>
+                                    <li><a href="index-hero-version-5.html">Hero Coupon Slider</a></li>
+                                    <li><a href="index-hero-version-6.html">Hero Interactive Slider</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    -->
+                  
+                    <li class="has-child"><a class="menu-header" href="#nav-cities">Ciudades</a>
+                        <div class="wrapper">                            
+                            <div id="nav-cities" class="nav-wrapper">
+                                <ul>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Morelia">Morelia</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Guadalajara">Guadalajara</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Queretaro">Queretaro</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Monterrey">Monterrey</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Aguascalientes">Aguascalientes</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/León">León</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Puebla">Puebla</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Tijuana">Tijuana</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Cancún">Cancún</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Colima">Colima</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Culiacan">Culiacan</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Hermosillo">Hermosillo</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Ciudad Juarez">Ciudad Juarez</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Los Mochis">Los Mochis</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Mazatlán">Mazatlán</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Mérida">Mérida</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Reynosa">Reynosa</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/Saltillo">Saltillo</a></li>
+                                    
+                                    <li><a href="https://elrutero.com.mx/San Luis Potosí">San Luis Potosí</a></li>
+                                    
+                                </ul>
+                            </div>                            
+                        </div>                        
+                    </li>
+                      <!--
+                    <li class="has-child"><a href="#nav-listing">Rutas</a>
+                        <div class="wrapper">
+                            <div id="nav-listing" class="nav-wrapper">
+                                <ul>
+                                    
+                                </ul>                                 
+                            </div>
+                        </div>
+                    </li>
+                    -->
+                    <!--
+                    <li class="has-child"><a href="#nav-listing">Rutas</a>
+                        <div class="wrapper">
+                            <div id="nav-listing" class="nav-wrapper">
+                                <ul>
+                                    
+                                <li class="route" id="1263" alt="#f00">
+                                    <a>R-1 Margaritas - Vicente Guerrero</a>
+                                </li>
+                                    
+                                <li class="route" id="1272" alt="#f00">
+                                    <a>R-10 Santa Mónica - Paseos de Aguascalientes</a>
+                                </li>
+                                    
+                                <li class="route" id="1273" alt="#f00">
+                                    <a>R-11 Jesús María - Santa Mónica</a>
+                                </li>
+                                    
+                                <li class="route" id="1274" alt="#f00">
+                                    <a>R-12 Fracc. Vicente Guerrero - Fracc. Lomas del Ajedrez</a>
+                                </li>
+                                    
+                                <li class="route" id="1275" alt="#f00">
+                                    <a>R-14 Fracc. Lomas del Ajedrez - Fracc. Vicente Guerrero</a>
+                                </li>
+                                    
+                                <li class="route" id="1276" alt="#f00">
+                                    <a>R-15 Fracc. Bellavista - Pocitos</a>
+                                </li>
+                                    
+                                <li class="route" id="1277" alt="#f00">
+                                    <a>R-16 Fracc. Bellavista - Hacienda Nueva</a>
+                                </li>
+                                    
+                                <li class="route" id="1278" alt="#f00">
+                                    <a>R-18 Lomas del Ajedrez - Circuito U.A.A.</a>
+                                </li>
+                                    
+                                <li class="route" id="1279" alt="#f00">
+                                    <a>R-19 Fracc. Vistas de Oriente - Guadalupe González U.A.A</a>
+                                </li>
+                                    
+                                <li class="route" id="1264" alt="#f00">
+                                    <a>R-2 Salto de Ojocaliente - Valle de los Cactus</a>
+                                </li>
+                                    
+                                <li class="route" id="1280" alt="#f00">
+                                    <a>R-20 Fracc. Ojocaliente I - Circuito Av. De la Convección</a>
+                                </li>
+                                    
+                                <li class="route" id="1281" alt="#f00">
+                                    <a>R-21 Fracc. Miradores - Ciudad Industrial</a>
+                                </li>
+                                    
+                                <li class="route" id="1282" alt="#f00">
+                                    <a>R-23-23B Fracc. Villas de Ntra. Sra. de la Asunción - Eaton/Los Arquitos</a>
+                                </li>
+                                    
+                                <li class="route" id="1283" alt="#f00">
+                                    <a>R-24 Fracc. Vistas de Oriente - Los Negritos</a>
+                                </li>
+                                    
+                                <li class="route" id="1284" alt="#f00">
+                                    <a>R-25 Fracc. Salto de Ojocaliente - Universidad Tecnológica</a>
+                                </li>
+                                    
+                                <li class="route" id="1285" alt="#f00">
+                                    <a>R-27 Fracc. Vicente Guerrero - Fracc. Cactus</a>
+                                </li>
+                                    
+                                <li class="route" id="1286" alt="#f00">
+                                    <a>R-28 Jesus María - Ciudad Industrial</a>
+                                </li>
+                                    
+                                <li class="route" id="1287" alt="#f00">
+                                    <a>R-29 Fracc. Lomas del Ajedrez - Centro</a>
+                                </li>
+                                    
+                                <li class="route" id="1265" alt="#f00">
+                                    <a>R-3 Torre Molinos - Santa Mónica</a>
+                                </li>
+                                    
+                                <li class="route" id="1288" alt="#f00">
+                                    <a>R-30 Fracc. Villas de Ntra. Sra. de la Asunción - Fracc. Martínez Domínguez</a>
+                                </li>
+                                    
+                                <li class="route" id="1289" alt="#f00">
+                                    <a>R-31 Santa Mónica - Cumbres III</a>
+                                </li>
+                                    
+                                <li class="route" id="1290" alt="#f00">
+                                    <a>R-33 Jesus María - Ciudad Industrial</a>
+                                </li>
+                                    
+                                <li class="route" id="1291" alt="#f00">
+                                    <a>R-34 Fracc. Villas de Ntra. Sra. de la Asunción - UPA</a>
+                                </li>
+                                    
+                                <li class="route" id="1292" alt="#f00">
+                                    <a>R-35 Fracc. Lomas del Ajedrez - Guadalupe González</a>
+                                </li>
+                                    
+                                <li class="route" id="1293" alt="#f00">
+                                    <a>R-36 Fracc. Lomas del Ajedrez - Centro</a>
+                                </li>
+                                    
+                                <li class="route" id="1294" alt="#f00">
+                                    <a>R-37 Fracc. Villas de Ntra. Sra. de la Asunción - Fracc. San Antonio</a>
+                                </li>
+                                    
+                                <li class="route" id="1295" alt="#f00">
+                                    <a>R-38 Fracc. Vicente Guerrero - Paso Blanco</a>
+                                </li>
+                                    
+                                <li class="route" id="1296" alt="#f00">
+                                    <a>R-39 El Conejal - Centro</a>
+                                </li>
+                                    
+                                <li class="route" id="1266" alt="#f00">
+                                    <a>R-4 Jesús María - Santa Mónica</a>
+                                </li>
+                                    
+                                <li class="route" id="1297" alt="#f00">
+                                    <a>R-40 Fracc. Ojocaliente I - Circuito Av. Aguascalientes</a>
+                                </li>
+                                    
+                                <li class="route" id="1298" alt="#f00">
+                                    <a>R-41 Fracc. Ojocaliente I - Circuito Penal</a>
+                                </li>
+                                    
+                                <li class="route" id="1299" alt="#f00">
+                                    <a>R-42 Fracc. Bellavista - Ciudad Industrial</a>
+                                </li>
+                                    
+                                <li class="route" id="1300" alt="#f00">
+                                    <a>R-43 Fracc. Villas de Ntra. Sra. de la Asunción - Lomas de Nueva York - Cañada Grande</a>
+                                </li>
+                                    
+                                <li class="route" id="1301" alt="#f00">
+                                    <a>R-44 Fracc. Bellavista - U.P.A.</a>
+                                </li>
+                                    
+                                <li class="route" id="1302" alt="#f00">
+                                    <a>R-45 Fracc. Salto de Ojocaliente - Guadalupe González - U.A.A.</a>
+                                </li>
+                                    
+                                <li class="route" id="1303" alt="#f00">
+                                    <a>R-46 Fracc. Vicente Guerrero - Calvillito</a>
+                                </li>
+                                    
+                                <li class="route" id="1304" alt="#f00">
+                                    <a>R-47 Fracc. Lomas del Ajedrez - Centro</a>
+                                </li>
+                                    
+                                <li class="route" id="1305" alt="#f00">
+                                    <a>R-48 Fracc. Bellavista - Centro</a>
+                                </li>
+                                    
+                                <li class="route" id="1267" alt="#f00">
+                                    <a>R-5 Fracc. Vicente Guerrero - La Ribera</a>
+                                </li>
+                                    
+                                <li class="route" id="1306" alt="#f00">
+                                    <a>R-50 Jesus María - Universidad Tecnológica</a>
+                                </li>
+                                    
+                                <li class="route" id="1268" alt="#f00">
+                                    <a>R-6 Jesús María - Santa Mónica</a>
+                                </li>
+                                    
+                                <li class="route" id="1269" alt="#f00">
+                                    <a>R-7 Fracc. Villas las Palmas - Centro</a>
+                                </li>
+                                    
+                                <li class="route" id="1270" alt="#f00">
+                                    <a>R-8 Fracc. Ntra. Señora de la Asunción - Col. Martínez Domínguez</a>
+                                </li>
+                                    
+                                <li class="route" id="1271" alt="#f00">
+                                    <a>R-9 Santa Mónica - Fracc. Los Laureles</a>
+                                </li>
+                                    
+                                </ul>                            
+                            </div>
+                        </div>
+                    </li>
+                    -->
+                                        <!--                  
+                    <li class="mega-menu-parent has-child"><a href="#nav-pages">Paginas</a>
+                        <div class="wrapper">
+                            <div class="mega-menu">
+                                <div class="nav-wrapper" id="nav-pages">
+                                    <div class="container">
+                                        <div class="row">                                            
+                                            <div class="col-md-4 col-sm-4">
+                                                <h4 class="heading">Negocios</h4>
+                                                <ul>
+                                                    <li><a href="#">Agregar Anuncio</a></li>
+                                                    <li><a href="#">Iniciar Sesión</a></li>
+                                                    <li><a href="#">Registro</a></li>
+                                                    <li><a href="#">Politicas de privacidad</a></li>                                                    
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="col-md-4 col-sm-4">
+                                                <h4 class="heading">General</h4>
+                                                <ul>
+                                                    <li><a href="#">Preguntas frecuentes</a></li>
+                                                    <li><a href="#">Planes</a></li> 
+                                                    <li><a href="#">Nosotros</a></li>
+                                                    <li><a href="#">Terminos y condiciones</a></li>
+                                                    <li><a href="#">Mapa del sitio</a></li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="image center overlay">
+                                                    <div class="vertical-aligned-elements">
+                                                        <div class="element">
+                                                            <a href="#" class="btn btn-default btn-framed">Agregar Anuncio</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bg-transfer"><img src="https://elrutero.com.mx/public/img/items/10.jpg" alt=""></div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                               
+                            </div>
+                            
+                        </div>
+                        
+                    </li>
+                    -->
+                    <!--
+                    <li><a href="#">Eventos</a></li>                    
+                    <li><a href="#">Blog</a></li>
+                   
+                    <li><a href="https://elrutero.com.mx/contacto/Aguascalientes">Contacto</a></li>
+                     -->
+                </ul>
+                <!--end navigation-->
+            </div>
+            <!--end primary-nav-->
+            <div class="secondary-nav">
+                <!--
+                <a href="#" data-modal-external-file="modal_sign_in.php" data-target="modal-sign-in">Sign In</a>
+                <a href="#" class="promoted" data-modal-external-file="modal_register.php" data-target="modal-register">Register</a>
+                -->
+               
+            </div>
+            <!--end secondary-nav-->
+            <!--
+            <a href="#" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" data-modal-external-file="modal_submit.php" data-target="modal-submit"><i class="fa fa-plus"></i><span>Agregar Negocio</span></a>
+            -->
+            
+            <a href="#" class="btn-config btn btn-rounded shadow add-listing" data-toggle="modal" data-target="#configModal"><i class="fa fa-gear"><span class="letter-button">Config</span></i><span>&nbsp;&nbsp;&nbsp; Config</span></a>
+
+            <a href="#" class="btn-routes btn btn-rounded shadow add-listing" data-toggle="modal" data-target="#routesModal"><i class="fa fa-bus"><span class="letter-button">Rutas</span></i><span>&nbsp;&nbsp;&nbsp; Rutas</span></a>
+                        <div class="nav-btn nav-mobile">
+                <i></i>
+                <i></i>
+                <i></i>                                              
+            </div>
+            <!--end nav-btn-->
+        </div>
+        <!--end right-->
+    </nav>
+    <!--end nav-->
+</header>
+
+<!-- routes Modal -->
+<div id="routesModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">    
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Rutas Aguascalientes</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+            <ul>
+                
+                <li class="route" id="1263" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-1 Margaritas - Vicente Guerrero</a> - Ruta
+                </li>
+                
+                <li class="route" id="1272" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-10 Santa Mónica - Paseos de Aguascalientes</a> - Ruta
+                </li>
+                
+                <li class="route" id="1273" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-11 Jesús María - Santa Mónica</a> - Ruta
+                </li>
+                
+                <li class="route" id="1274" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-12 Fracc. Vicente Guerrero - Fracc. Lomas del Ajedrez</a> - Ruta
+                </li>
+                
+                <li class="route" id="1275" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-14 Fracc. Lomas del Ajedrez - Fracc. Vicente Guerrero</a> - Ruta
+                </li>
+                
+                <li class="route" id="1276" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-15 Fracc. Bellavista - Pocitos</a> - Ruta
+                </li>
+                
+                <li class="route" id="1277" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-16 Fracc. Bellavista - Hacienda Nueva</a> - Ruta
+                </li>
+                
+                <li class="route" id="1278" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-18 Lomas del Ajedrez - Circuito U.A.A.</a> - Ruta
+                </li>
+                
+                <li class="route" id="1279" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-19 Fracc. Vistas de Oriente - Guadalupe González U.A.A</a> - Ruta
+                </li>
+                
+                <li class="route" id="1264" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-2 Salto de Ojocaliente - Valle de los Cactus</a> - Ruta
+                </li>
+                
+                <li class="route" id="1280" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-20 Fracc. Ojocaliente I - Circuito Av. De la Convección</a> - Ruta
+                </li>
+                
+                <li class="route" id="1281" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-21 Fracc. Miradores - Ciudad Industrial</a> - Ruta
+                </li>
+                
+                <li class="route" id="1282" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-23-23B Fracc. Villas de Ntra. Sra. de la Asunción - Eaton/Los Arquitos</a> - Ruta
+                </li>
+                
+                <li class="route" id="1283" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-24 Fracc. Vistas de Oriente - Los Negritos</a> - Ruta
+                </li>
+                
+                <li class="route" id="1284" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-25 Fracc. Salto de Ojocaliente - Universidad Tecnológica</a> - Ruta
+                </li>
+                
+                <li class="route" id="1285" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-27 Fracc. Vicente Guerrero - Fracc. Cactus</a> - Ruta
+                </li>
+                
+                <li class="route" id="1286" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-28 Jesus María - Ciudad Industrial</a> - Ruta
+                </li>
+                
+                <li class="route" id="1287" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-29 Fracc. Lomas del Ajedrez - Centro</a> - Ruta
+                </li>
+                
+                <li class="route" id="1265" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-3 Torre Molinos - Santa Mónica</a> - Ruta
+                </li>
+                
+                <li class="route" id="1288" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-30 Fracc. Villas de Ntra. Sra. de la Asunción - Fracc. Martínez Domínguez</a> - Ruta
+                </li>
+                
+                <li class="route" id="1289" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-31 Santa Mónica - Cumbres III</a> - Ruta
+                </li>
+                
+                <li class="route" id="1290" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-33 Jesus María - Ciudad Industrial</a> - Ruta
+                </li>
+                
+                <li class="route" id="1291" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-34 Fracc. Villas de Ntra. Sra. de la Asunción - UPA</a> - Ruta
+                </li>
+                
+                <li class="route" id="1292" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-35 Fracc. Lomas del Ajedrez - Guadalupe González</a> - Ruta
+                </li>
+                
+                <li class="route" id="1293" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-36 Fracc. Lomas del Ajedrez - Centro</a> - Ruta
+                </li>
+                
+                <li class="route" id="1294" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-37 Fracc. Villas de Ntra. Sra. de la Asunción - Fracc. San Antonio</a> - Ruta
+                </li>
+                
+                <li class="route" id="1295" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-38 Fracc. Vicente Guerrero - Paso Blanco</a> - Ruta
+                </li>
+                
+                <li class="route" id="1296" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-39 El Conejal - Centro</a> - Ruta
+                </li>
+                
+                <li class="route" id="1266" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-4 Jesús María - Santa Mónica</a> - Ruta
+                </li>
+                
+                <li class="route" id="1297" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-40 Fracc. Ojocaliente I - Circuito Av. Aguascalientes</a> - Ruta
+                </li>
+                
+                <li class="route" id="1298" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-41 Fracc. Ojocaliente I - Circuito Penal</a> - Ruta
+                </li>
+                
+                <li class="route" id="1299" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-42 Fracc. Bellavista - Ciudad Industrial</a> - Ruta
+                </li>
+                
+                <li class="route" id="1300" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-43 Fracc. Villas de Ntra. Sra. de la Asunción - Lomas de Nueva York - Cañada Grande</a> - Ruta
+                </li>
+                
+                <li class="route" id="1301" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-44 Fracc. Bellavista - U.P.A.</a> - Ruta
+                </li>
+                
+                <li class="route" id="1302" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-45 Fracc. Salto de Ojocaliente - Guadalupe González - U.A.A.</a> - Ruta
+                </li>
+                
+                <li class="route" id="1303" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-46 Fracc. Vicente Guerrero - Calvillito</a> - Ruta
+                </li>
+                
+                <li class="route" id="1304" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-47 Fracc. Lomas del Ajedrez - Centro</a> - Ruta
+                </li>
+                
+                <li class="route" id="1305" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-48 Fracc. Bellavista - Centro</a> - Ruta
+                </li>
+                
+                <li class="route" id="1267" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-5 Fracc. Vicente Guerrero - La Ribera</a> - Ruta
+                </li>
+                
+                <li class="route" id="1306" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-50 Jesus María - Universidad Tecnológica</a> - Ruta
+                </li>
+                
+                <li class="route" id="1268" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-6 Jesús María - Santa Mónica</a> - Ruta
+                </li>
+                
+                <li class="route" id="1269" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-7 Fracc. Villas las Palmas - Centro</a> - Ruta
+                </li>
+                
+                <li class="route" id="1270" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-8 Fracc. Ntra. Señora de la Asunción - Col. Martínez Domínguez</a> - Ruta
+                </li>
+                
+                <li class="route" id="1271" alt="#f00">
+                    <i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;<a>R-9 Santa Mónica - Fracc. Los Laureles</a> - Ruta
+                </li>
+                
+            </ul>  
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- routes Modal -->
+<div id="configModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">    
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Configuraciones</h4>
+        <br>
+      </div>
+      <div class="modal-body">
+        <div class="map-controls-modal">
+            <div class="row no-padding no-margin">
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding no-margin">
+                    <div id="clean-map" style="background:#e45544 !important;">
+                        <div class="clean" style="margin-top:3px !important;">Limpiar mapa</div>
+                    </div>                            
+                </div>
+                <div class="container"><hr></div>
+                <br><br>
+                <h4 class="modal-title">Distancia a caminar en metros:</h4>
+                <br>
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding no-margin pull-right">
+                    <input class="pull-right" type="number" id="distance-walk-modal" value="300" min="100" max="1000" step="100"/>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal confirm -->
+<div id="confirmModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-lg">    
+    <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                <h4 class="modal-title">ENCUESTA EL RUTERO</h4>
+                <br>
+          </div>
+            <div class="modal-body">
+                <p>               
+                    Danos tu opinión, en caso de desarrollar la app El Rutero para Andoid y iOS...
+                </p>    
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn resp" id="1" style="width:100%; text-align: center;">La descargaria de inmediato</button> <br><br>          
+                <button type="button" class="btn resp" id="2" style="width:100%; text-align: center;">No hace falta</button><br><br>
+                <button type="button" class="btn resp" id="3" style="width:100%; text-align: center;">Me es indiferente</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<body class="homepage" id="body-rutero">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v3.2';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="page-wrapper">
+    <!--
+<button id="goFS">Go fullscreen</button>
+<script>
+  
+    
+</script>
+-->
+
+<div class="bg-loading"><div style="width:100%; text-align:center; padding-top:110px;color:#fff;font-size:18px;font-weight:bold;"><p>Cargando...</p></div> </div> 
+
+    <div id="page-content">
+        <div class="hero-section full-screen has-map has-sidebar">
+            <div class="map-wrapper">  
+
+                <div class="map" id="map-homepage">
+                    <p><h1>Cargando mapa...</h1><p>
+                    <!--<a href="https://ixtapate.com.mx" target="_blank">  -->
+                          
+                        
+                        
+                    <!--</a>  -->  
+                </div>
+                  
+                    <div id="banner" url="https://michoacan.travel/" style="position:absolute; bottom:0px; z-index:99999; width: 100%; height:85px;background: #333; opacity:0.8;cursor:pointer;">
+                        <div style="width:100%; height:40px; opacity:1; margin-top:20px;">
+                            <img src="https://elrutero.com.mx/public/img/playas.png" alt="Michoacán" style="height:100%; margin-top:1px;margin-left:8px;"> 
+                            <span style="font-size:16px; color:#fff; margin-top:10px;float:right;margin-right: 10px;">Visita Michoacán</span>
+                        </div>    
+                    </div>
+                                <div id="alert-gps">GPS inactivo</div>
+                <div id="alert-save">Sin guardar registros</div>
+                <div id="alert-info">Info</div>
+                <div id="alert-mobile" style="bottom:85px !important;">Ver más rutas... </div>
+                <div class="map-controls">
+                    <div class="row no-padding no-margin">
+                        <!--
+                        <div class="col-md-3 col-sm-3 col-xs-3 no-padding no-margin pull-left">
+                            <div style="margin-top:8px !important;" class="fb-share-button" data-href="https://elrutero.com.mx/Aguascalientes" data-layout="button" data-size="large" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Felrutero.com.mx%2FMorelia&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>
+                        </div> 
+                        -->      
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div id="clean-map">
+                                <div class="clean" style="margin-top:3px !important;">Limpiar mapa</div>
+                            </div>                            
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 no-padding no-margin pull-right">
+                            <input class="pull-right" type="number" id="distance-walk" value="300" min="100" max="1000" step="100"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end map-wrapper-->
+            <div class="results-wrapper">
+                
+                <div class="results-container tse-scrollable">
+                    <div class="results-cont tse-content">
+                   <!-- <form>
+                        
+                        <div class="section-title">
+                            <h2>¿cúal es tu destino?</h2>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="keyword" placeholder="Destino">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="keyword" placeholder="Mi ubicación">
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" data-ajax-response="map" data-ajax-data-file="assets/external/data_2.php" data-ajax-auto-zoom="1" class="btn btn-primary pull-right"><i class="fa fa-search"></i></button>
+                        </div>                        
+                    </form>-->
+                    </div>
+                </div>
+                
+                <div class="results">
+                    <div class="tse-scrollable" style="overflow-y: scroll !important;">
+                        <div class="tse-content">
+                        
+                            <div class="section-title">
+                                <h2>Lugares Destacados</h2>
+                            </div>  
+                                                      
+                            <!--end section-title-->
+                            <div class="results-content">
+                                  
+                            </div>
+                            <!--end results-content-->
+                        </div>
+                        <!--end tse-content-->
+                    </div>
+                    <!--end tse-scrollable-->
+                </div>
+                <!--end results-->
+            </div>
+            <!--end results-wrapper-->
+        </div>
+        <!--end hero-section-->
+        <!--
+        <div class="block">
+            <div class="container">
+                <div class="center">
+                    <div class="section-title">
+                        <div class="center">
+                            <h2>Lugares nuevos</h2>
+                            <h3 class="subtitle">Conoce lugares agregados recientemente</h3>
+                        </div>
+                    </div>                   
+                </div>                
+                <div class="row">
+                    
+                </div>                
+                <div class="center">
+                    <a href="#" class="btn btn-primary btn-light-frame btn-rounded btn-framed arrow"> Ver más lugares </a>
+                </div>            
+            </div>            
+        </div>
+        -->
+
+        <!--
+        <div class="container"><hr></div>
+        <div class="block">
+            <div class="container">
+                <div class="section-title">
+                    <div class="center">
+                        <h2>Busca por categoría</h2>
+                    </div>
+                </div>
+               
+                <div class="categories-list">
+                    <div class="row">
+                                            <div class="col-md-3 col-sm-3">
+                            <div class="list-item">
+                                <div class="title">
+                                    <div class="icon"><i class="fa fa-paint-brush"></i></div>
+                                    <h3><a href="#">Turismo</a></h3>
+                                </div>                                                              
+                            </div>                            
+                        </div>                        
+                         
+                    </div>                    
+                </div>                
+            </div>            
+        </div>
+        -->
+
+        <!--
+        <div class="block big-padding">
+            <div class="container">
+                <div class="vertical-aligned-elements">
+                    <div class="element width-50">
+                        <h3>Suscribete y mantente informado de promociones y nuevos lugares</h3>
+                    </div>                    
+                    <div class="element width-50">
+                        <form class="form form-email inputs-underline" id="form-subscribe">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="email" placeholder="Tu email" required="">
+                                <span class="input-group-btn">
+                                    <button class="btn" type="submit"><i class="arrow_right"></i></button>
+                                </span>
+                            </div>
+                        </form>                        
+                    </div>                    
+                </div>                
+            </div>            
+            <div class="background-wrapper">
+                <div class="background-color background-color-black opacity-5"></div>
+            </div>            
+        </div>
+        -->
+
+        <!--
+        <div class="block background-is-dark">
+            <div class="container">
+                <div class="section-title vertical-aligned-elements">
+                    <div class="element">
+                        <h2>Mejores Lugares</h2>
+                    </div>
+                    <div class="element text-align-right">
+                        <a href="#" class="btn btn-framed btn-rounded btn-default invisible-on-mobile">Promociona tu negocio</a>
+                        <div id="gallery-nav"></div>
+                    </div>
+                </div>               
+            </div>
+            <div class="gallery featured">
+                <div class="owl-carousel" data-owl-items="8" data-owl-loop="1" data-owl-auto-width="1" data-owl-nav="1" data-owl-dots="1" data-owl-nav-container="#gallery-nav">
+                                        
+                </div>
+            </div>
+            
+            <div class="background-wrapper">
+                <div class="background-color background-color-default"></div>
+            </div>
+            
+        </div>
+        -->
+        <!--
+        <div class="block">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Eventos cerca de tí</h2>
+                </div>                
+                <div class="row">
+                                   
+                </div>                
+                <div class="background-wrapper">
+                    <div class="background-color background-color-black opacity-5"></div>
+                </div>                
+            </div>            
+        </div>
+        -->
+        <!--
+        <div class="block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="section-title">
+                            <h2>Sitios Turisticos</h2>
+                        </div>                        
+                        <div class="row">
+                               
+                        </div>                        
+                    </div>                    
+                </div>                
+            </div>           
+        </div>
+
+        -->
+
+        <!--
+        <div class="block">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Blog</h2>
+                </div>                
+                <div class="row">
+                    
+                </div>                
+            </div>            
+        </div>       
+
+        <div class="container">
+            <hr>
+        </div>        
+        -->
+        <!--
+        <div class="block">
+            <div class="container">
+                <div class="logos">
+                    <div class="logo">
+                        <a href="#"><img src="https://elrutero.com.mx/public/img/logo-1.png" alt=""></a>
+                    </div>
+                    <div class="logo">
+                        <a href="#"><img src="https://elrutero.com.mx/public/img/logo-2.png" alt=""></a>
+                    </div>
+                    <div class="logo">
+                        <a href="#"><img src="https://elrutero.com.mx/public/img/logo-3.png" alt=""></a>
+                    </div>
+                    <div class="logo">
+                        <a href="#"><img src="https://elrutero.com.mx/public/img/logo-4.png" alt=""></a>
+                    </div>
+                    <div class="logo">
+                        <a href="#"><img src="https://elrutero.com.mx/public/img/logo-5.png" alt=""></a>
+                    </div>
+                </div>                
+            </div>            
+        </div>  
+        -->  
+   
+    </div>
+
+ 
+
+ 
+    <footer id="page-footer">
+    <div class="footer-wrapper">
+        <div class="block">
+            <div class="container">
+                <div class="vertical-aligned-elements">
+                    <div class="element width-100">
+                        <p data-toggle="modal" data-target="#myModal">
+                            <h1>El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa </h1>
+                        <!--<a href="#">Términos y condiciones</a> and 
+                        <a href="#">Políticas de privacidad</a>.</p>-->
+                    </div>
+                    <div class="element width-50 text-align-right">                        
+                        <a href="https://www.facebook.com/El-Rutero-451573574881081" class="circle-icon"><i class="social_facebook"></i></a>                        
+                    </div>
+                </div>
+                <div class="background-wrapper">
+                    <div class="bg-transfer opacity-50">
+                        <img src="https://elrutero.com.mx/public/img/footer-bg.png" alt="El Rutero">
+                    </div>
+                </div> 
+                <div class="row">
+                                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1263/r-1-margaritas---vicente-guerrero" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-1 Margaritas - Vicente Guerrero    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1272/r-10-santa-mónica---paseos-de-aguascalientes" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-10 Santa Mónica - Paseos de Aguascalientes    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1273/r-11-jesús-maría---santa-mónica" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-11 Jesús María - Santa Mónica    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1274/r-12-fracc.-vicente-guerrero---fracc.-lomas-del-ajedrez" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-12 Fracc. Vicente Guerrero - Fracc. Lomas del Ajedrez    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1275/r-14-fracc.-lomas-del-ajedrez---fracc.-vicente-guerrero" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-14 Fracc. Lomas del Ajedrez - Fracc. Vicente Guerrero    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1276/r-15-fracc.-bellavista---pocitos" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-15 Fracc. Bellavista - Pocitos    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1277/r-16-fracc.-bellavista---hacienda-nueva" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-16 Fracc. Bellavista - Hacienda Nueva    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1278/r-18-lomas-del-ajedrez---circuito-u.a.a." title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-18 Lomas del Ajedrez - Circuito U.A.A.    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1279/r-19-fracc.-vistas-de-oriente---guadalupe-gonzález-u.a.a" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-19 Fracc. Vistas de Oriente - Guadalupe González U.A.A    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1264/r-2-salto-de-ojocaliente---valle-de-los-cactus" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-2 Salto de Ojocaliente - Valle de los Cactus    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1280/r-20-fracc.-ojocaliente-i---circuito-av.-de-la-convección" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-20 Fracc. Ojocaliente I - Circuito Av. De la Convección    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1281/r-21-fracc.-miradores---ciudad-industrial" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-21 Fracc. Miradores - Ciudad Industrial    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1282/r-23-23b-fracc.-villas-de-ntra.-sra.-de-la-asunción---eaton/los-arquitos" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-23-23B Fracc. Villas de Ntra. Sra. de la Asunción - Eaton/Los Arquitos    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1283/r-24-fracc.-vistas-de-oriente---los-negritos" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-24 Fracc. Vistas de Oriente - Los Negritos    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1284/r-25-fracc.-salto-de-ojocaliente---universidad-tecnológica" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-25 Fracc. Salto de Ojocaliente - Universidad Tecnológica    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1285/r-27-fracc.-vicente-guerrero---fracc.-cactus" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-27 Fracc. Vicente Guerrero - Fracc. Cactus    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1286/r-28-jesus-maría---ciudad-industrial" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-28 Jesus María - Ciudad Industrial    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1287/r-29-fracc.-lomas-del-ajedrez---centro" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-29 Fracc. Lomas del Ajedrez - Centro    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1265/r-3-torre-molinos---santa-mónica" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-3 Torre Molinos - Santa Mónica    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1288/r-30-fracc.-villas-de-ntra.-sra.-de-la-asunción---fracc.-martínez-domínguez" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-30 Fracc. Villas de Ntra. Sra. de la Asunción - Fracc. Martínez Domínguez    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1289/r-31-santa-mónica---cumbres-iii" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-31 Santa Mónica - Cumbres III    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1290/r-33-jesus-maría---ciudad-industrial" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-33 Jesus María - Ciudad Industrial    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1291/r-34-fracc.-villas-de-ntra.-sra.-de-la-asunción---upa" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-34 Fracc. Villas de Ntra. Sra. de la Asunción - UPA    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1292/r-35-fracc.-lomas-del-ajedrez---guadalupe-gonzález" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-35 Fracc. Lomas del Ajedrez - Guadalupe González    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1293/r-36-fracc.-lomas-del-ajedrez---centro" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-36 Fracc. Lomas del Ajedrez - Centro    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1294/r-37-fracc.-villas-de-ntra.-sra.-de-la-asunción---fracc.-san-antonio" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-37 Fracc. Villas de Ntra. Sra. de la Asunción - Fracc. San Antonio    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1295/r-38-fracc.-vicente-guerrero---paso-blanco" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-38 Fracc. Vicente Guerrero - Paso Blanco    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1296/r-39-el-conejal---centro" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-39 El Conejal - Centro    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1266/r-4-jesús-maría---santa-mónica" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-4 Jesús María - Santa Mónica    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1297/r-40-fracc.-ojocaliente-i---circuito-av.-aguascalientes" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-40 Fracc. Ojocaliente I - Circuito Av. Aguascalientes    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1298/r-41-fracc.-ojocaliente-i---circuito-penal" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-41 Fracc. Ojocaliente I - Circuito Penal    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1299/r-42-fracc.-bellavista---ciudad-industrial" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-42 Fracc. Bellavista - Ciudad Industrial    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1300/r-43-fracc.-villas-de-ntra.-sra.-de-la-asunción---lomas-de-nueva-york---cañada-grande" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-43 Fracc. Villas de Ntra. Sra. de la Asunción - Lomas de Nueva York - Cañada Grande    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1301/r-44-fracc.-bellavista---u.p.a." title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-44 Fracc. Bellavista - U.P.A.    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1302/r-45-fracc.-salto-de-ojocaliente---guadalupe-gonzález---u.a.a." title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-45 Fracc. Salto de Ojocaliente - Guadalupe González - U.A.A.    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1303/r-46-fracc.-vicente-guerrero---calvillito" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-46 Fracc. Vicente Guerrero - Calvillito    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1304/r-47-fracc.-lomas-del-ajedrez---centro" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-47 Fracc. Lomas del Ajedrez - Centro    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1305/r-48-fracc.-bellavista---centro" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-48 Fracc. Bellavista - Centro    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1267/r-5-fracc.-vicente-guerrero---la-ribera" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-5 Fracc. Vicente Guerrero - La Ribera    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1306/r-50-jesus-maría---universidad-tecnológica" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-50 Jesus María - Universidad Tecnológica    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1268/r-6-jesús-maría---santa-mónica" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-6 Jesús María - Santa Mónica    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1269/r-7-fracc.-villas-las-palmas---centro" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-7 Fracc. Villas las Palmas - Centro    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1270/r-8-fracc.-ntra.-señora-de-la-asunción---col.-martínez-domínguez" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-8 Fracc. Ntra. Señora de la Asunción - Col. Martínez Domínguez    -    </a>
+                                    <a style="font-size:11px;" href="https://elrutero.com.mx/Aguascalientes/1271/r-9-santa-mónica---fracc.-los-laureles" title="El Rutero Aguascalientes : Rutas Aguascalientes, busca tú ruta directa"> R-9 Santa Mónica - Fracc. Los Laureles    -    </a>
+                                            </div>               
+            </div>
+
+        </div>
+
+        <div class="footer-navigation">
+            <div class="container">
+                <div class="vertical-aligned-elements">
+                    <div class="element width-50">(C) 2022 El Rutero, todos los derechos reservados.</div>
+                    <!--
+                    <div class="element width-50 text-align-right">
+                        <a href="#">Inicio</a>
+                        <a href="#">Lugares</a>
+                        <a href="#">Agregar lugar</a>
+                        <a href="#">Contacto</a>
+                    </div>
+                    -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+ 
+</div>
+<!--end page-wrapper-->
+<a href="#" class="to-top scroll" data-show-after-scroll="600"><i class="arrow_up"></i></a>
+</div>   
+
+
+     
+
+
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/jquery-2.2.1.min.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/bootstrap/js/bootstrap.min.js"></script>
+<!--
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/bootstrap-select.min.js"></script>
+-->
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/markerclusterer_packed.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/icheck.min.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/jquery.trackpad-scroll-emulator.min.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/moment.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/jquery.nouislider.all.min.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/custom.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/bootstrap-input-spinner.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/AnimatedMarker.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/polylineDecorator.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/jquery-2.js"></script>
+<script type="text/javascript" src="https://elrutero.com.mx/public/js/jquery-3.min.js"></script>
+<script>    
+        jQuery(document).ready( function(){
+
+        /*var encuesta = '0';       
+        if(encuesta==0){            
+            $("#confirmModal").modal("show");
+        } */
+
+        $(document).on('click', '.resp',function() {
+        $('.bg-loading').show(); 
+            var resp = $(this).attr('id');
+            $.ajax({
+                type: 'POST',
+                url: "https://elrutero.com.mx/encuesta",
+                data: {
+                    "_token": "9dxee6nnHTo5ua09ZfFYKkmnZaUACIWrw4gLnHqe",
+                    "resp": resp,
+                    "id_city": 6                   
+                },
+                success: function (resp) {           
+                    $('.bg-loading').hide();
+                    $("#confirmModal").modal("hide");
+                },
+                error: function (reject) {
+                    alert('A ocurrido un error, intenta de nuevo')
+                    $('.bg-loading').hide();
+                },
+                timeout: 8000 // sets timeout to 8 seconds
+            });        
+           
+        }); 
+
+         
+        $(document).on('click', '#banner',function() {
+            var idCiudad = 6
+            var url = $(this).attr('url');
+            $.ajax({
+                type: 'POST',
+                url: "https://elrutero.com.mx/banner",
+                data: {
+                    "_token": "9dxee6nnHTo5ua09ZfFYKkmnZaUACIWrw4gLnHqe",
+                    "id_city": 6                    
+                },
+                success: function (resp) { 
+                    if(idCiudad == 1)          
+                        window.open('https://michoacan.travel/', '_blank');
+                    else
+                        window.open('https://michoacan.travel/', '_blank');
+                },
+                error: function (reject) {
+                    
+                },
+                timeout: 8000 // sets timeout to 8 seconds
+            });        
+           
+        }); 
+
+        setTimeout(function(){
+            var id_route ='0';
+            if(id_route != 0){
+                drawRoute(id_route, $("#"+id_route).attr("alt"),true); 
+            }
+        }, 1500);
+
+            
+        
+        window.addEventListener('offline', function(e) { 
+            console.log('offline');
+            $('#alert-gps').html('Sin conexión a internet');  
+            $('#alert-gps').show();   
+        });
+
+        window.addEventListener('online', function(e) { 
+            console.log('online'); 
+            $('#alert-gps').hide();
+        });
+
+        var radius = $('#distance-walk').val();
+        var radius = $('#distance-walk-modal').val();
+
+        $("#distance-walk").inputSpinner({
+            decrementButton: "<strong>-</strong>", // button text
+            incrementButton: "<strong>+</strong>", // ..
+            groupClass: "walk", // css class of the input-group (sizing with input-group-sm or input-group-lg)
+            buttonsClass: "btn-outline-secondary",
+            buttonsWidth: "3em",
+            textAlign: "center",
+            autoDelay: 500, // ms holding before auto value change
+            autoInterval: 100, // speed of auto value change
+            boostThreshold: 10, // boost after these steps
+            boostMultiplier: "auto", // you can also set a constant number as multiplier
+            locale: null // the locale for number rendering; if null, the browsers language is used
+        });
+
+        $("#distance-walk-modal").inputSpinner({
+            decrementButton: "<strong>-</strong>", // button text
+            incrementButton: "<strong>+</strong>", // ..
+            groupClass: "walk", // css class of the input-group (sizing with input-group-sm or input-group-lg)
+            buttonsClass: "btn-outline-secondary",
+            buttonsWidth: "3em",
+            textAlign: "center",
+            autoDelay: 500, // ms holding before auto value change
+            autoInterval: 100, // speed of auto value change
+            boostThreshold: 10, // boost after these steps
+            boostMultiplier: "auto", // you can also set a constant number as multiplier
+            locale: null // the locale for number rendering; if null, the browsers language is used
+        });
+
+        
+        $('.walk .form-control').keydown(function(event) {
+            // Allow only backspace and delete
+            if ( event.keyCode == 46 || event.keyCode == 8 ) {
+                // let it happen, don't do anything
+            }else {
+                // Ensure that it is a number and stop the keypress
+                if (event.keyCode < 48 || event.keyCode > 57 ) {
+                    event.preventDefault(); 
+                }   
+            }
+        });
+      
+        
+        $('#distance-walk').on("change", function (event) {
+            //alert(1)
+            if($(this).val() < 100 || $(this).val() > 1000)
+                $(this).val(300)
+            radius = $(this).val();
+            originCircle.setRadius($(this).val());
+            destinyCircle.setRadius($(this).val());
+
+            var originLatLng = originMarker.getLatLng();
+            var destinyLatLng = destinyMarker.getLatLng();
+            if(destinationDefined && originDefined){
+                calculate(originLatLng.lat, originLatLng.lng, destinyLatLng.lat, destinyLatLng.lng,radius); 
+            }
+        });
+
+        $('#distance-walk-modal').on("change", function (event) {
+            //alert(1)
+            if($(this).val() < 100 || $(this).val() > 1000)
+                $(this).val(300)
+            radius = $(this).val();
+            originCircle.setRadius($(this).val());
+            destinyCircle.setRadius($(this).val());
+
+            var originLatLng = originMarker.getLatLng();
+            var destinyLatLng = destinyMarker.getLatLng();
+            if(destinationDefined && originDefined){
+                calculate(originLatLng.lat, originLatLng.lng, destinyLatLng.lat, destinyLatLng.lng,radius); 
+            }
+        });
+
+
+        bounds = new L.LatLngBounds(new L.LatLng(21.47990723, -102.8162384), new L.LatLng(22.21156339, -101.79176331));
+
+
+        var gpsInit = false;
+        var originDefined = false;
+        var destinationDefined = false;
+        var map = L.map('map-homepage',{
+        	minZoom: 11,
+            maxZoom: 17,
+            attributionControl: false,
+            maxBounds: bounds,
+  			maxBoundsViscosity: 1,
+            center: bounds.getCenter(),
+
+            gestureHandling: false,
+                gestureHandlingOptions: {
+                    duration: 3000, //5 secs
+                    text: {
+                        touch: "Usa dos dedos para mover el mapa",
+                        scroll: "Usa ctrl + scroll para hacer zoom",
+                        scrollMac: "Usa \u2318 + scroll para hacer zoom"
+                    }
+                }
+        }).setView([21.88778356, -102.30058908],13);
+
+        var markers = [];
+         
+        var routesColors = [];
+                    routesColors[1263] = '#f00';
+                    routesColors[1272] = '#f00';
+                    routesColors[1273] = '#f00';
+                    routesColors[1274] = '#f00';
+                    routesColors[1275] = '#f00';
+                    routesColors[1276] = '#f00';
+                    routesColors[1277] = '#f00';
+                    routesColors[1278] = '#f00';
+                    routesColors[1279] = '#f00';
+                    routesColors[1264] = '#f00';
+                    routesColors[1280] = '#f00';
+                    routesColors[1281] = '#f00';
+                    routesColors[1282] = '#f00';
+                    routesColors[1283] = '#f00';
+                    routesColors[1284] = '#f00';
+                    routesColors[1285] = '#f00';
+                    routesColors[1286] = '#f00';
+                    routesColors[1287] = '#f00';
+                    routesColors[1265] = '#f00';
+                    routesColors[1288] = '#f00';
+                    routesColors[1289] = '#f00';
+                    routesColors[1290] = '#f00';
+                    routesColors[1291] = '#f00';
+                    routesColors[1292] = '#f00';
+                    routesColors[1293] = '#f00';
+                    routesColors[1294] = '#f00';
+                    routesColors[1295] = '#f00';
+                    routesColors[1296] = '#f00';
+                    routesColors[1266] = '#f00';
+                    routesColors[1297] = '#f00';
+                    routesColors[1298] = '#f00';
+                    routesColors[1299] = '#f00';
+                    routesColors[1300] = '#f00';
+                    routesColors[1301] = '#f00';
+                    routesColors[1302] = '#f00';
+                    routesColors[1303] = '#f00';
+                    routesColors[1304] = '#f00';
+                    routesColors[1305] = '#f00';
+                    routesColors[1267] = '#f00';
+                    routesColors[1306] = '#f00';
+                    routesColors[1268] = '#f00';
+                    routesColors[1269] = '#f00';
+                    routesColors[1270] = '#f00';
+                    routesColors[1271] = '#f00';
+                
+
+        /*var gl = L.mapboxGL({
+            style: 'https://raw.githubusercontent.com/osm2vectortiles/mapbox-gl-styles/master/styles/bright-v9-cdn.json',
+            accessToken: 'pk.eyJ1IjoiajJoNjciLCJhIjoiY2pwbTVzeXV0MGxpYzN4bmxycjE3MWZzbyJ9.Sf7FJHIwnSKe3flpmnrs9w'
+        }).addTo(map);
+
+        var gl = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);*/
+
+        var gl = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd'
+        }).addTo(map);
+
+
+
+        
+       
+        L.control.scale().addTo(map);
+
+        // specify popup options 
+        var customOptions = {
+            'maxWidth': '500',
+            'className' : 'custom'
+        }
+        
+        var placesMarkers = []; 
+        var placesPlan1 = L.layerGroup().addTo(map);
+        var placesPlan2 = L.layerGroup().addTo(map);
+        var placesPlan3 = L.layerGroup().addTo(map);
+        var placesPlan4 = L.layerGroup().addTo(map);  
+        
+        var markerIconPlace = L.icon({
+            iconUrl: "https://elrutero.com.mx/public/img/markerPlace.png",
+            iconSize:     [35, 38], // size of the icon           
+            iconAnchor:   [17.5, 38], // point of the icon which will correspond to marker's location
+        });
+        /*
+                */
+        map.on('zoomend', function() {
+            zoomLev = map.getZoom();                       
+            if (zoomLev >= 18){//Dsiplay all
+                map.addLayer(placesPlan1);
+                map.addLayer(placesPlan2);
+                map.addLayer(placesPlan3); 
+                map.addLayer(placesPlan4);                                     
+            }else if (zoomLev >= 16){
+                map.removeLayer(placesPlan1);
+                map.addLayer(placesPlan2);
+                map.addLayer(placesPlan3); 
+                map.addLayer(placesPlan4);                        
+            }else if (zoomLev >= 14){
+                map.removeLayer(placesPlan1);
+                map.removeLayer(placesPlan2);
+                map.addLayer(placesPlan3); 
+                map.addLayer(placesPlan4);                        
+            }
+            else if (zoomLev >= 13){
+                map.removeLayer(placesPlan1);
+                map.removeLayer(placesPlan2);
+                map.removeLayer(placesPlan3); 
+                map.addLayer(placesPlan4);                        
+            }
+        });
+
+        var markerOrigin = L.icon({
+            iconUrl: "https://elrutero.com.mx/public/img/markerorigin.svg",
+            iconSize:     [52, 38], // size of the icon           
+            iconAnchor:   [26, 38], // point of the icon which will correspond to marker's location
+        });
+
+        var markerDestination = L.icon({
+            iconUrl: "https://elrutero.com.mx/public/img/markerdestination.svg",
+            iconSize:     [52, 38], // size of the icon           
+            iconAnchor:   [26, 38], // point of the icon which will correspond to marker's location
+        });
+
+        var originMarker = L.marker(
+            [21.88778356, -102.31058908],{
+                icon: markerOrigin,
+                draggable: true
+            }).addTo(map);
+        
+        var originCircle = L.circle([21.88778356, -102.31058908],{
+            radius: 300,
+            color:'#e45544'
+        }).addTo(map);
+
+        markers.push(originMarker);
+
+        var destinyMarker = L.marker(
+            [21.88778356, -102.29058908],{
+                icon: markerDestination,
+                draggable: true
+            }).addTo(map);
+
+        var destinyCircle = L.circle([21.88778356, -102.29058908],{
+            radius: 300,
+            color:'#2ca02c'
+            
+        }).addTo(map);
+
+        markers.push(destinyMarker);
+
+        var routesArray = [];
+        var routesArrowArray = [];
+        
+        $(document).on('click', '.route',function() { 
+            console.log('route');      
+            var idRoute = $(this).attr('id');
+            var color = $(this).attr('alt');
+            if($(this).hasClass( "route-active" )){                
+                $(this).removeClass( "route-active" );
+                routesArray[idRoute].remove();
+                routesArrowArray[idRoute].remove();                
+           }else{                
+                drawRoute(idRoute, color,true); 
+                $(this).addClass( "route-active" );                
+            }
+            $('#routesModal').modal('toggle');        
+        });        
+        
+        $( "#clean-map" ).click(function() {
+            cleanMap();                 
+        });
+
+        function drawRoute(idRoute, color, boundsRoute){
+            var latlngs = [];            
+            $('.bg-loading').show();
+            $.ajax({
+                type: 'POST',
+                url: "https://elrutero.com.mx/loadroute",
+                data: {
+                    "_token": "9dxee6nnHTo5ua09ZfFYKkmnZaUACIWrw4gLnHqe",
+					"idRoute": idRoute                   
+                },
+                success: function (resp) { 
+                    let valData = CryptoJSAesJson.decrypt(resp.data, 'rutero')                     
+                    $.each(valData, function (name, value) {                        
+                        var point = new L.LatLng(value.latitude, value.longitude);
+                        latlngs.push(point); 
+                    });
+                    routesArray[idRoute] = L.polyline(latlngs, {color: color,smoothFactor:3}).addTo(map);
+                    routesArrowArray[idRoute] = L.polylineDecorator(routesArray[idRoute]).addTo(map);
+                    
+                    var arrowOffset = 0;            
+                    routesArrowArray[idRoute].setPatterns([
+                        {offset: arrowOffset+'%', endOffset: 0, repeat: 100, symbol: new L.Symbol.ArrowHead({pixelSize: 6, polygon: true, pathOptions: {color: color, opacity: 1, stroke: true}})}
+                    ]);
+                    $('.bg-loading').hide();
+                },
+                error: function (reject) {
+                    alert('A ocurrido un error, intenta de nuevo')
+                    $('.bg-loading').hide();
+                },
+                timeout: 8000 // sets timeout to 8 seconds
+            });           
+        }
+
+        function cleanMap(){
+            $( ".div-active" ).remove();
+            $('.result-routes').removeClass( "option-active" );  
+            routesArray.forEach(function(element) {
+                element.remove();
+            });
+            routesArrowArray.forEach(function(element) {
+                element.remove();
+            });
+            $( ".route" ).removeClass( "route-active" );   
+        }          
+
+        //bounds = new L.LatLngBounds(new L.LatLng(19.52102993, -101.45277232), new L.LatLng(19.89906875, -100.94834536));   
+        var southWest = L.latLng(21.47990723, -102.8162384),
+			northEast = L.latLng(22.21156339, -101.79176331),
+			limit = L.latLngBounds(southWest, northEast);
+
+
+
+		
+        // create the geocoding control and add it to the map
+        
+        var destinationControl = L.esri.Geocoding.geosearch({
+            placeholder:'Dirección destino',
+            title:'Destino',
+            allowMultipleResults:false,
+            zoomToResult:false,
+            expanded:false,
+            searchBounds:limit
+        }).addTo(map);
+       
+        
+        var geocodeService = L.esri.Geocoding.geocodeService();
+        
+        // listen for the results event and add every result to the map
+        destinationControl.on("results", function(data) {            
+            destinyMarker.setLatLng(data.results[0].latlng);
+            destinyCircle.setLatLng(data.results[0].latlng);
+            destinationDefined = true;            
+            var originLatLng = originMarker.getLatLng();
+            var featureGroup = L.featureGroup(markers).addTo(map);
+			map.fitBounds(featureGroup.getBounds());
+            if(destinationDefined && originDefined)
+                calculate(originLatLng.lat, originLatLng.lng, data.results[0].latlng.lat, data.results[0].latlng.lng,radius);          
+                   
+        });
+
+        var originControl = L.esri.Geocoding.geosearch({
+            placeholder:'Dirección origen',
+            title:'Origen',
+            allowMultipleResults:false,
+            zoomToResult:false,
+            expanded:false,
+            searchBounds:limit,
+            maxResults:3
+        }).addTo(map);
+
+        originControl.on("results", function(data) {            
+            originMarker.setLatLng(data.results[0].latlng);
+            originCircle.setLatLng(data.results[0].latlng);  
+            lc.stop(); 
+            originDefined = true; 
+            var featureGroup = L.featureGroup(markers).addTo(map);
+			map.fitBounds(featureGroup.getBounds());           
+            var destinyLatLng = destinyMarker.getLatLng();
+            if(destinationDefined && originDefined)
+                calculate(data.results[0].latlng.lat, data.results[0].latlng.lng, destinyLatLng.lat, destinyLatLng.lng,radius);          
+        });
+
+         map.zoomControl.setPosition('topright');
+
+         var lc = L.control.locate({
+            position: 'topright',
+            //flyTo:true,
+            strings: {
+                title: "Mostrar mi ubicación"
+            },
+            locateOptions: {
+               maxZoom: 13,
+               enableHighAccuracy: true,
+               timeout:5000
+            }
+        }).addTo(map);
+
+       
+
+        var lastLatitude = 0;
+        var lastLongitude = 0;
+        var lastLatitudeSaved = 0;
+        var lastLongitudeSaved = 0;
+
+        setTimeout(function(){
+            $('#alert-gps').html('GPS apagado, te recomendamos encenderlo');  
+            $('#alert-gps').show(); 
+            navigator.permissions.query({name:'geolocation'}).then(function(result) {
+                // Will return ['granted', 'prompt', 'denied']
+                console.log(result.state);
+                if(result.state == 'granted'){
+                    $('#alert-gps').hide(); 
+                    console.log('granted')          
+                    lc.start(); 
+                }else if(result.state == 'prompt'){
+                    $('#alert-gps').html('GPS apagado, te recomendamos encenderlo');  
+                    $('#alert-gps').show();
+                    lc.start();  
+                    console.log('prompt')
+                }else if(result.state == 'denied'){
+                    $('#alert-gps').html('GPS apagado, te recomendamos encenderlo');  
+                    $('#alert-gps').show(); 
+                    console.log('denied')
+                }
+            });            
+        }, 1500);
+        
+        var is_gps_active = 0;
+        map.on('locationfound', function(e) {            
+            var latlngPoint = new L.LatLng(e.latlng.lat, e.latlng.lng);
+            if(bounds.contains(latlngPoint)){
+                is_gps_active = 1;
+                var lat = (e.latlng.lat);
+                var lng = (e.latlng.lng);
+                var newLatLng = new L.LatLng(lat, lng);                      
+                originMarker.setLatLng(newLatLng);
+                originCircle.setLatLng(newLatLng);
+                originDefined = true; 
+                var destinyLatLng = destinyMarker.getLatLng();
+                if(destinationDefined && originDefined && !gpsInit)
+                    calculate(lat, lng, destinyLatLng.lat, destinyLatLng.lng,radius); 
+                gpsInit = true; 
+                $('#alert-gps').hide();            
+                lastLatitude = lat;
+                lastLongitude = lng;     
+            }else{
+                is_gps_active = 0;
+                alert('Tu ubicación se encuentra fuera de la ciudad')
+            }
+                           
+        });
+        
+        function onLocationError(e){            
+            $('#alert-gps').html('GPS apagado, te recomendamos encenderlo');  
+            $('#alert-gps').show();            
+        }        
+        map.on('locationerror', onLocationError);
+        
+        
+        destinyMarker.on("dragend",function(ev){
+            var destinyLatLng = ev.target.getLatLng();
+            destinyCircle.setLatLng(destinyLatLng);
+            destinyCircle.addTo(map);
+            //this.bindPopup(destinyLatLng.toString()).openPopup(); 
+            var originLatLng = originMarker.getLatLng();
+            destinationDefined = true;
+            if(destinationDefined && originDefined)
+                calculate(originLatLng.lat, originLatLng.lng, destinyLatLng.lat, destinyLatLng.lng,radius);          
+        });
+
+        
+        destinyMarker.on("dragstart",function(ev){
+            destinyCircle.remove();
+        });    
+       
+        originMarker.on("dragend",function(ev){
+            var originLatLng = ev.target.getLatLng();
+            originCircle.setLatLng(originLatLng);
+            originCircle.addTo(map);
+            //this.bindPopup(originLatLng.toString()).openPopup(); 
+            var destinyLatLng = destinyMarker.getLatLng();           
+            lc.stop();
+            originDefined = true;
+            if(destinationDefined && originDefined)
+                calculate(originLatLng.lat, originLatLng.lng, destinyLatLng.lat, destinyLatLng.lng,radius);          
+        });
+
+        originMarker.on("dragstart",function(ev){
+            originCircle.remove();
+        }); 
+
+         
+
+        function calculate(lat_origin, long_origin, lat_destination, long_destination,radius){
+            $('.bg-loading').show();
+            $('.results-cont').html(''); 
+            $('.results-container').show();           
+            $.ajax({
+                type: 'POST',
+                url: "https://elrutero.com.mx/calculate",
+                data: {
+                    "_token": "9dxee6nnHTo5ua09ZfFYKkmnZaUACIWrw4gLnHqe",
+					"lat_origin": lat_origin,
+					"long_origin": long_origin,
+                    "lat_destination": lat_destination,
+					"long_destination": long_destination,
+                    "is_gps_active": is_gps_active,                    
+                    "ratio": radius,
+                },
+                success: function (resp) { 
+                    //alert(resp.length)                                      
+                    if(parseInt(resp.length) > 2){  
+                        var contador = 1;                  
+                        $.each(JSON.parse(resp), function (name, value) {
+                            if(value.routes == 1){
+                                $('.results-cont').append('<div class="result-item result-routes row_'+value.id+'" alt="'+value.id+'"><a><h3><i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;'+value.name+'</h3></div>');
+                                if(contador==1){ 
+                                    $( '.row_'+value.id ).click();
+                                    $('#alert-mobile').html(value.name);
+                                }else if(contador==2){// mas de un resultado
+                                    $('#alert-mobile').append('<br>Ver más resultados...');
+                                }                               
+                            }                             
+                            else if(value.routes == 2){
+                                $('.results-cont').append('<div class="result-item result-routes row_'+value.id+'" alt="'+value.id+'_'+value.id2+'"><a><h3><i class="fa fa-bus"></i>&nbsp;&nbsp;&nbsp;'+value.name + ' > ' + value.name2+'</h3></div>');                            
+                                if(contador==1){ 
+                                    $( '.row_'+value.id ).click();
+                                    $('#alert-mobile').html(value.name + ' > ' + value.name2);
+                                }else if(contador==2){// mas de un resultado
+                                    $('#alert-mobile').append('<br>Ver más resultados...');
+                                }
+                            } 
+                            contador++;                         
+                        }); 
+                        $('.bg-loading').hide(); 
+                        var featureGroup = L.featureGroup(markers).addTo(map);
+                        map.fitBounds(featureGroup.getBounds());                   
+                    }else{
+                        $('#alert-mobile').html('No hay resultados...');
+                        $('.results-cont').append('<div class="result-item" ><a><h3>No hay resultados para tu origen y destino, intenta aumentando el radio de busqueda.</h3></div>');
+                        cleanMap();
+                        $('.bg-loading').hide();
+                    }
+                },
+                error: function (reject) {
+                   //alert('error')
+                }
+            });
+                       
+            $('#alert-mobile').show();
+        }
+
+        $('.results-cont').on('click', '.result-routes',function() {                               
+            var routes = $(this).attr('alt');
+            var routesA = routes.split("_"); 
+            cleanMap();
+            var cont = 0;
+            $.each(routesA, function (name, value) { 
+                if(cont > 0 && value > 108)               
+                    drawRoute(value,'#0040FF',true);
+                else
+                    drawRoute(value,routesColors[value],true);
+                $('#'+value).addClass( "route-active" );
+                cont++;
+            }); 
+            $(this).prepend( "<div class='div-active' ></div>" );
+            $(this).addClass( "option-active" );                       
+        });
+
+        $('.map-wrapper').on('click', '#alert-mobile',function() {            
+            $('html, body').animate({
+                scrollTop: $('.map-wrapper').scrollTop() + 300
+            });
+        });
+
+        $(document).on('click', '.result-routes',function() {                     
+            $('html, body').animate({
+                scrollTop: $('.map-wrapper').scrollTop() 
+            });            
+            $('#alert-mobile').html($(this).children().children().text());                
+            $('#alert-mobile').append('<br>Ver más resultados...');              
+        });
+       
+
+        $('#routesModal').on('hidden.bs.modal', function () {
+            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                //$('.nav-btn').toggleClass("active");           
+                //$(".primary-nav").toggleClass("show"); 
+            }
+        });
+    });   
+</script>
+</body>

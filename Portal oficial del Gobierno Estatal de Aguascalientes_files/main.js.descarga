@@ -1,0 +1,41 @@
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Obtener todos los elementos con la clase "post__title"
+    const postTitles = document.querySelectorAll('.post__title');
+
+    // Iterar sobre cada elemento y obtener su altura
+    postTitles.forEach(postTitle => {
+      const titleHeight = postTitle.clientHeight;
+
+      // Obtener el elemento .post__floating más cercano al .post__title actual
+      const postFloating = postTitle.closest('.post__floating');
+
+      // Aplicar transformación a .post__floating
+      if (postFloating) {
+        postFloating.style.transform = `translateY(${titleHeight+100}px)`;
+      }
+    });
+
+    // Obtener todos los elementos con la clase "post"
+    const posts = document.querySelectorAll('.post');
+
+    // Iterar sobre cada elemento y obtener la altura de .post__floating
+    posts.forEach(post => {
+      // Obtener el elemento .post__floating dentro del .post actual
+      const postFloating = post.querySelector('.post__floating');
+
+      // Verificar si se encontró .post__floating
+      if (postFloating) {
+        // Obtener la altura de .post__floating
+        const floatingHeight = postFloating.clientHeight;
+
+        // Aplicar la altura de .post__floating al elemento .post
+        post.style.height = `${floatingHeight}px`;
+      }
+    });
+  });
