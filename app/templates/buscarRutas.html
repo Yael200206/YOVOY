@@ -1,0 +1,223 @@
+
+
+
+{% extends "layout.html" %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gobierno de Aguascalientes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Boxicons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        .hero {
+            background: linear-gradient(rgba(42, 45, 132, 0.8), rgba(42, 45, 132, 0.8)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        #map, #map2 {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .fav-location {
+            margin-top: 20px;
+        }
+        .fav-location .btn {
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+        .fav-location .btn i {
+            margin-right: 8px;
+        }
+        .fav-location .btn-home {
+            background-color: #1E90FF;
+            color: white;
+        }
+        .fav-location .btn-work {
+            background-color: #4682B4;
+            color: white;
+        }
+        .fav-location .btn-add {
+            background-color: #5F9EA0;
+            color: white;
+        }
+        .fav-location .btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Contenido dinámico -->
+    <main class="container mt-5">
+        <h3>Destino: {{ destination }}</h3>
+        <h4>Ruta desde {{ origin }}</h4>
+
+        <div class="mb-3">
+            <input id="origin" type="text" class="form-control" placeholder="Origen" value="{{ origin }}">
+            <input id="destination" type="text" class="form-control mt-2" placeholder="Destino" value="{{ destination }}">
+        </div>
+        <button class="btn btn-primary" onclick="calculateRoute()">Mostrar Ruta</button>
+
+        <!-- Mapa 1: Menos Transbordos -->
+        <div id="map" class="mt-4"></div>
+        <div id="steps1">
+            <h5>Instrucciones (Menos Transbordos):</h5>
+            <ul id="stepsList1"></ul>
+        </div>
+
+        <!-- Mapa 2: Menos Caminata -->
+        <div id="map2" class="mt-4"></div>
+        <div id="steps2">
+            <h5>Instrucciones (Menos Caminata):</h5>
+            <ul id="stepsList2"></ul>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCaTfrpS9pYoUrezV6CKF5QrPaxlJKhRQ&libraries=places&callback=initMap"></script>
+
+    <script>
+        let map1, map2;
+        let directionsService;
+        let directionsRenderer1, directionsRenderer2;
+
+        function initMap() {
+            // Mapa 1 - Menos Transbordos
+            map1 = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 21.8853, lng: -102.2916 }, // Aguascalientes
+                zoom: 12
+            });
+
+            // Mapa 2 - Menos Caminata
+            map2 = new google.maps.Map(document.getElementById("map2"), {
+                center: { lat: 21.8853, lng: -102.2916 }, // Aguascalientes
+                zoom: 12
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer1 = new google.maps.DirectionsRenderer();
+            directionsRenderer1.setMap(map1);
+            directionsRenderer2 = new google.maps.DirectionsRenderer();
+            directionsRenderer2.setMap(map2);
+
+            new google.maps.places.Autocomplete(document.getElementById("origin"));
+            new google.maps.places.Autocomplete(document.getElementById("destination"));
+        }
+
+        function calculateRoute() {
+            let origin = document.getElementById("origin").value;
+            let destination = document.getElementById("destination").value;
+
+            if (!origin || !destination) {
+                alert("Por favor, ingresa ambas ubicaciones");
+                return;
+            }
+
+            let now = new Date();
+            let nextDay13 = new Date(now.setDate(now.getDate() + 1));
+            nextDay13.setHours(13, 0, 0, 0); // Ajustar a las 13:00 del día siguiente
+
+            let request1 = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.TravelMode.TRANSIT,
+                transitOptions: {
+                    modes: [google.maps.TransitMode.BUS],
+                    routingPreference: google.maps.TransitRoutePreference.LESS_TRANSFERS, // Menos transbordos
+                    departureTime: nextDay13
+                }
+            };
+
+            let request2 = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.TravelMode.TRANSIT,
+                transitOptions: {
+                    modes: [google.maps.TransitMode.BUS],
+                    routingPreference: google.maps.TransitRoutePreference.LESS_WALKING, // Menos caminata
+                    departureTime: nextDay13
+                }
+            };
+
+            // Ruta con menos transbordos (Mapa 1)
+            directionsService.route(request1, function (result, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsRenderer1.setDirections(result);
+                    displaySteps(result, 'stepsList1'); // Mostrar instrucciones de la ruta 1
+                    drawRoute(result, '#FF5733', map1); // Color para menos transbordos
+                } else {
+                    alert("No se pudo encontrar una ruta con menos transbordos.");
+                }
+            });
+
+            // Ruta con menos caminata (Mapa 2)
+            directionsService.route(request2, function (result, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsRenderer2.setDirections(result);
+                    displaySteps(result, 'stepsList2'); // Mostrar instrucciones de la ruta 2
+                    drawRoute(result, '#008000', map2); // Color para menos caminata
+                } else {
+                    alert("No se pudo encontrar una ruta con menos caminata.");
+                }
+            });
+        }
+
+        function displaySteps(result, listId) {
+            const stepsList = document.getElementById(listId);
+            stepsList.innerHTML = ''; // Limpiar la lista de pasos
+
+            result.routes[0].legs.forEach(leg => {
+                leg.steps.forEach(step => {
+                    let listItem = document.createElement('li');
+                    
+                    if (step.transit) {
+                        // Detalles del autobús
+                        const transitDetails = step.transit;
+                        const busLine = transitDetails.line.shortName;
+                        const departureStop = transitDetails.departureStop.name;
+                        const arrivalStop = transitDetails.arrivalStop.name;
+
+                        listItem.textContent = `Toma el autobús ${busLine} desde ${departureStop} hasta ${arrivalStop}.`;
+                    } else if (step.walking) {
+                        // Detalles de la caminata
+                        listItem.textContent = `Camina desde ${step.startLocation} hasta ${step.endLocation}.`;
+                    }
+
+                    stepsList.appendChild(listItem);
+                });
+            });
+        }
+
+        function drawRoute(result, color, map) {
+            const routePolyline = new google.maps.Polyline({
+                path: result.routes[0].overview_path,
+                geodesic: true,
+                strokeColor: color,
+                strokeOpacity: 1.0,
+                strokeWeight: 4
+            });
+            routePolyline.setMap(map);
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

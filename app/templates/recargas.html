@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Recarga de Saldo</h1>
+    
+    <!-- Sección de Saldo Actual dentro de un círculo azul -->
+    <div class="saldo-actual" style="text-align: center; margin-bottom: 20px;">
+        <div style="background-color: #007bff; color: white; width: 150px; height: 150px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+            <h3 id="saldo">MXN 100.00</h3>
+        </div>
+    </div>
+
+    <!-- Sección de Recarga -->
+    <div class="recarga">
+        <h3>Recargar con Tarjeta de Crédito o Débito</h3>
+        
+        <form action="{{ url_for('recargas') }}" method="POST">
+            <div class="form-group">
+                <label for="monto">Monto a Recargar</label>
+                <input type="number" name="monto" id="monto" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="tarjeta">Número de Tarjeta</label>
+                <input type="text" name="tarjeta" id="tarjeta" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha-expiracion">Fecha de Expiración</label>
+                <input type="text" name="fecha-expiracion" id="fecha-expiracion" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" name="cvv" id="cvv" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Recargar Saldo</button>
+        </form>
+    </div>
+
+    <!-- Mapa de puntos de recarga con Leaflet -->
+    <div class="mapa-recarga" style="margin-top: 30px;">
+        <h3>Puntos de Recarga Cercanos</h3>
+        <div id="map" style="height: 400px;"></div>
+    </div>
+</div>
+
+<!-- Carga de Leaflet CSS y JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    // Ejemplo de JSON con puntos de recarga
+    const puntosRecarga = [
+        { "direccion": "16 de Septiembre 457", "latitud": 21.876085, "longitud": -102.291331 },
+        { "direccion": "16 De Septiembre 601c", "latitud": 21.873907, "longitud": -102.290731 }
+        // Aquí puedes agregar más puntos de recarga
+    ];
+
+    // Función para calcular la distancia entre dos puntos usando la fórmula de Haversine
+    function calcularDistancia(lat1, lon1, lat2, lon2) {
+        const R = 6371; // Radio de la Tierra en km
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distancia = R * c; // Distancia en km
+        return distancia;
+    }
+
+    // Función para obtener la ubicación actual del usuario y mostrar los puntos cercanos
+    function obtenerUbicacionYFiltrarPuntos() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitudUsuario = position.coords.latitude;
+                const longitudUsuario = position.coords.longitude;
+                
+                // Crear mapa centrado en la ubicación del usuario
+                const map = L.map('map').setView([latitudUsuario, longitudUsuario], 13);
+
+                // Agregar el mapa base de OpenStreetMap
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                // Añadir un marcador para la ubicación del usuario
+                L.marker([latitudUsuario, longitudUsuario]).addTo(map)
+                    .bindPopup("<b>Tu ubicación actual</b>")
+                    .openPopup();
+
+                // Filtrar los puntos de recarga más cercanos (ejemplo de distancia máxima: 1 km)
+                const puntosCercanos = puntosRecarga.filter(punto => {
+                    const distancia = calcularDistancia(latitudUsuario, longitudUsuario, punto.latitud, punto.longitud);
+                    return distancia <= 1; // Filtrar puntos a menos de 1 km
+                });
+
+                // Mostrar los puntos cercanos en el mapa
+                puntosCercanos.forEach(punto => {
+                    L.marker([punto.latitud, punto.longitud]).addTo(map)
+                        .bindPopup(`<b>Punto de Recarga</b><br>${punto.direccion}`);
+                });
+
+            }, function() {
+                alert("No se pudo obtener la ubicación.");
+            });
+        } else {
+            alert("La geolocalización no está soportada por este navegador.");
+        }
+    }
+
+    // Llamar a la función para obtener la ubicación y mostrar los puntos cercanos
+    obtenerUbicacionYFiltrarPuntos();
+</script>
+{% endblock %}

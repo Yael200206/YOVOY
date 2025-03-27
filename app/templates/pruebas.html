@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutas de Camión Aguascalientes</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCaTfrpS9pYoUrezV6CKF5QrPaxlJKhRQ&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+        .button-container {
+            margin: 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .route-button {
+            padding: 10px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            flex: 1 0 21%; /* Ajusta el tamaño de los botones */
+        }
+        .route-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-container" id="button-container">
+        <!-- Los botones se generarán aquí -->
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        var map;
+        var directionsService;
+        var directionsRenderer;
+
+        // Lista de rutas
+        var rutas = [
+            'Ruta 1', 'Ruta 2', 'Ruta 3', 'Ruta 4', 'Ruta 5', 'Ruta 6', 'Ruta 7', 'Ruta 8', 'Ruta 9', 'Ruta 10',
+            'Ruta 11', 'Ruta 12', 'Ruta 13', 'Ruta 14', 'Ruta 15', 'Ruta 16', 'Ruta 17', 'Ruta 18', 'Ruta 19', 'Ruta 20',
+            'Ruta 21', 'Ruta 22', 'Ruta 23', 'Ruta 24', 'Ruta 25', 'Ruta 26', 'Ruta 27', 'Ruta 28', 'Ruta 29', 'Ruta 30',
+            'Ruta 31', 'Ruta 32', 'Ruta 33', 'Ruta 34', 'Ruta 35', 'Ruta 36', 'Ruta 37', 'Ruta 38', 'Ruta 39', 'Ruta 40',
+            'Ruta 41', 'Ruta 42', 'Ruta 43', 'Ruta 44', 'Ruta 45',
+            'Ruta 50B', 'Ruta 51', 'Ruta UTR'
+        ];
+
+        // Inicialización del mapa
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 21.878, lng: -102.291 },
+                zoom: 13
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                map: map
+            });
+
+            // Generar los botones para cada ruta
+            var container = document.getElementById('button-container');
+            rutas.forEach(function(ruta) {
+                var button = document.createElement('button');
+                button.className = 'route-button';
+                button.innerText = ruta;
+                button.onclick = function() {
+                    getRoute(ruta); // Llamada a la función para obtener la ruta
+                };
+                container.appendChild(button);
+            });
+        }
+
+        // Función para obtener la ruta usando la Directions API
+function getRoute(routeId) {
+    var request;
+
+    // Usando coordenadas geográficas (ejemplo, ajusta a las coordenadas reales)
+    var origen = { lat: 21.878, lng: -102.291 };  // Coordenadas de Aguascalientes
+    var destino = { lat: 21.890, lng: -102.285 };  // Coordenadas de un destino ficticio (ajusta según las rutas reales)
+
+    request = {
+        origin: origen,
+        destination: destino,
+        travelMode: 'TRANSIT',  // Usamos 'TRANSIT' para obtener rutas de transporte público
+        transitOptions: {
+            modes: ['BUS']
+        }
+    };
+
+    // Solicitar la ruta a la API
+    directionsService.route(request, function(response, status) {
+        if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+        } else {
+            alert('No se pudo obtener la ruta: ' + status);
+        }
+    });
+}
+
+    </script>
+
+</body>
+</html>

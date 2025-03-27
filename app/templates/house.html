@@ -1,0 +1,206 @@
+
+
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Mapbox CSS -->
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet" />
+<!-- Boxicons CSS -->
+<link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
+<style>
+    .hero {
+        background: linear-gradient(rgba(42, 45, 132, 0.8), rgba(42, 45, 132, 0.8)), url('background.jpg');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        text-align: center;
+        padding: 50px 20px;
+    }
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+    .fav-location {
+        margin-top: 20px;
+    }
+    .fav-location .btn {
+        font-size: 16px;
+        display: inline-flex;
+        align-items: center;
+        margin-right: 10px;
+    }
+    .fav-location .btn i {
+        margin-right: 8px;
+    }
+    .fav-location .btn-home {
+        background-color: #1E90FF;
+        color: white;
+    }
+    .fav-location .btn-work {
+        background-color: #4682B4;
+        color: white;
+    }
+    .fav-location .btn-add {
+        background-color: #5F9EA0;
+        color: white;
+    }
+    .fav-location .btn:hover {
+        opacity: 0.8;
+    }
+    .route-button {
+        margin: 10px 0;
+    }
+    #searchResults {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 20px;
+        right: 20px;
+        z-index: 1000;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    #searchResults .list-group-item {
+        cursor: pointer;
+    }
+</style>
+</head>
+
+
+  <!-- Barra de búsqueda -->
+  <section class="hero">
+    <h1>¿A dónde quieres ir?</h1>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="searchInput" placeholder="Escribe tu destino...">
+        <button class="btn btn-primary" type="button" id="searchButton">Buscar</button>
+    </div>
+    <ul id="searchResults" class="list-group"></ul>  <!-- Lista de resultados -->
+</section>
+
+
+<!-- Lugares favoritos -->
+<section class="fav-location container">
+    <h3>Lugares Favoritos</h3>
+    <button class="btn btn-home" id="homeButton"><i class="bx bx-home"></i> Casa</button>
+    <button class="btn btn-work" id="workButton"><i class="bx bx-briefcase"></i> Trabajo</button>
+    <button class="btn btn-add" id="addLocationButton" data-bs-toggle="modal" data-bs-target="#addLocationModal"><i class="bx bx-plus-circle"></i> Guardar otro lugar</button>
+</section>
+
+<!-- Mapa de ubicación -->
+<section>
+    <div id="map"></div>
+</section>
+
+
+
+<!-- Modal para agregar un lugar favorito -->
+<div class="modal fade" id="addLocationModal" tabindex="-1" aria-labelledby="addLocationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addLocationModalLabel">Agregar lugar favorito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="newLocation">Nombre del lugar</label>
+                <input type="text" class="form-control" id="newLocation" placeholder="Ej. Parque, Restaurante">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="saveLocationButton">Guardar lugar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Mapbox GL JS -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+
+<script>
+    // Inicialización del mapa con Mapbox
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaGlyYW0wNjAyMjAiLCJhIjoiY204cGx2MG53MGM2eDJqb21ud2h1enIwOCJ9.nd8HgkDj3SEJlr-oQY8ufg';  // Sustituye con tu token de Mapbox
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-102.2933, 21.8848],
+        zoom: 13
+    });
+
+    // Función para realizar la búsqueda en Mapbox
+    function searchLocations(query) {
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}&proximity=-102.2933,21.8848`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const results = data.features.filter(feature => {
+                    // Filtra los resultados para que solo muestre lugares dentro de Aguascalientes
+                    return feature.place_name.toLowerCase().includes(' ');
+                });
+                showResults(results);
+            })
+            .catch(error => console.error('Error al buscar lugares:', error));
+    }
+
+    // Función para mostrar los resultados de búsqueda en el listado
+    function showResults(results) {
+        let resultsList = document.getElementById('searchResults');
+        resultsList.innerHTML = '';  // Limpiar resultados anteriores
+        if (results.length > 0) {
+            results.forEach(result => {
+                let listItem = document.createElement('li');
+                listItem.classList.add('list-group-item');
+                listItem.textContent = result.place_name;
+                listItem.addEventListener('click', function() {
+                    // Al hacer clic en un resultado, redirigir a la página de rutas
+                    window.location.href = `/buscar_rutas?destination=${encodeURIComponent(result.place_name)}`;
+                });
+                resultsList.appendChild(listItem);
+            });
+            resultsList.style.display = 'block';  // Mostrar la lista de resultados
+        } else {
+            resultsList.style.display = 'none';  // Ocultar la lista si no hay resultados
+        }
+    }
+
+    // Función para ocultar los resultados
+    function hideResults() {
+        document.getElementById('searchResults').style.display = 'none';
+    }
+
+    // Evento de búsqueda mientras se escribe en el input
+    document.getElementById('searchInput').addEventListener('input', function() {
+        let query = this.value;
+        if (query.length > 2) {  // Esperar hasta que se escriban más de 2 caracteres
+            searchLocations(query);
+        } else {
+            hideResults();
+        }
+    });
+
+    document.getElementById('searchButton').addEventListener('click', function() {
+        var searchInput = document.getElementById('searchInput').value;
+        if (searchInput.trim()) {
+            // Redirigir a la ruta de Flask para buscar rutas, pasando el destino como parámetro en la URL
+            window.location.href = `/buscar_rutas?destination=${encodeURIComponent(searchInput)}`;
+        }
+    });
+</script>
+
+{% endblock %}
