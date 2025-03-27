@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+     form {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: auto;
+    }
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+    input, textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        background-color: #1E90FF;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 15px;
+    }
+    button:hover {
+        background-color: #4682B4;
+    }
+    .route-list {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 30px;
+    }
+    .route-item {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .route-item h4 {
+        margin: 0;
+        font-size: 18px;
+        color: #2A2D84;
+    }
+    .route-item a {
+        background-color: #1E90FF;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .route-item a:hover {
+        background-color: #4682B4;
+    }
+</style>
+    <h2>Subir Reporte</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="bus_id">ID del Camión:</label>
+        <input type="text" name="bus_id" required>
+        <p><small>El ID del camión es el número que aparece en el lateral del autobús.</small></p>
+
+        <label for="description">Descripción:</label>
+        <textarea name="description" required></textarea>
+
+        <label for="image">Subir Imagen (Opcional):</label>
+        <input type="file" name="image">
+
+        <button type="submit">Enviar Reporte</button>
+    </form>
+
+    <h2>Reportes Subidos</h2>
+    <ul>
+        {% for report in reports %}
+            <li>
+                <strong>ID del Camión:</strong> {{ report.bus_id }} <br>
+                <strong>Descripción:</strong> {{ report.description }} <br>
+                <strong>Fecha y Hora:</strong> {{ report.timestamp }} <br>
+                {% if report.image %}
+                    <img src="{{ url_for('static', filename=report.image) }}" alt="Imagen del reporte" width="200">
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

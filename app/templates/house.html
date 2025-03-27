@@ -1,18 +1,9 @@
-
-
 {% extends "layout.html" %}
 
-
 {% block content %}
-
-
-
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Mapbox CSS -->
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet" />
-<!-- Boxicons CSS -->
-<link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
+<!-- Google Maps CSS -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
     .hero {
         background: linear-gradient(rgba(42, 45, 132, 0.8), rgba(42, 45, 132, 0.8)), url('background.jpg');
@@ -70,11 +61,9 @@
         cursor: pointer;
     }
 </style>
-</head>
 
-
-  <!-- Barra de búsqueda -->
-  <section class="hero">
+<!-- Barra de búsqueda -->
+<section class="hero">
     <h1>¿A dónde quieres ir?</h1>
     <div class="input-group mb-3">
         <input type="text" class="form-control" id="searchInput" placeholder="Escribe tu destino...">
@@ -82,7 +71,6 @@
     </div>
     <ul id="searchResults" class="list-group"></ul>  <!-- Lista de resultados -->
 </section>
-
 
 <!-- Lugares favoritos -->
 <section class="fav-location container">
@@ -94,10 +82,8 @@
 
 <!-- Mapa de ubicación -->
 <section>
-    <div id="map"></div>
+    <div id="map" style="height: 400px;"></div>
 </section>
-
-
 
 <!-- Modal para agregar un lugar favorito -->
 <div class="modal fade" id="addLocationModal" tabindex="-1" aria-labelledby="addLocationModalLabel" aria-hidden="true">
@@ -119,78 +105,128 @@
     </div>
 </div>
 
-
-
-
-
-
-
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Mapbox GL JS -->
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+<!-- Google Maps JS -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCaTfrpS9pYoUrezV6CKF5QrPaxlJKhRQ&libraries=places&callback=initMap"></script>
 
 <script>
-    // Inicialización del mapa con Mapbox
-    mapboxgl.accessToken = 'pk.eyJ1IjoiaGlyYW0wNjAyMjAiLCJhIjoiY204cGx2MG53MGM2eDJqb21ud2h1enIwOCJ9.nd8HgkDj3SEJlr-oQY8ufg';  // Sustituye con tu token de Mapbox
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [-102.2933, 21.8848],
-        zoom: 13
-    });
+    let map;
+    let directionsService;
+    let directionsRenderer;
+    let geocoder;
+    let destinationInput = document.getElementById('searchInput');
+    let searchResults = document.getElementById('searchResults');
+    let placesService;
 
-    // Función para realizar la búsqueda en Mapbox
-    function searchLocations(query) {
-        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}&proximity=-102.2933,21.8848`;
+    function initMap() {
+        // Inicia el mapa centrado en una ubicación predeterminada
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,
+            center: { lat: 21.8848, lng: -102.2933 } // Puedes establecer el centro que prefieras
+        });
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                const results = data.features.filter(feature => {
-                    // Filtra los resultados para que solo muestre lugares dentro de Aguascalientes
-                    return feature.place_name.toLowerCase().includes(' ');
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+        geocoder = new google.maps.Geocoder();
+        placesService = new google.maps.places.PlacesService(map);
+
+        // Autocompletar para el input de destino
+        new google.maps.places.Autocomplete(destinationInput);
+    }
+
+    // Función para obtener la ubicación actual del usuario
+    function getCurrentLocation() {
+        if (navigator.geolocation) {
+            return new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    resolve({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    });
+                }, function(error) {
+                    reject('Error al obtener la ubicación actual');
                 });
+            });
+        } else {
+            alert("Geolocalización no es compatible con este navegador.");
+        }
+    }
+
+    // Función para buscar lugares con Google Places API
+    function searchLocations(query) {
+        const request = {
+            query: query,
+            fields: ['name', 'geometry']
+        };
+
+        placesService.findPlaceFromQuery(request, function(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
                 showResults(results);
-            })
-            .catch(error => console.error('Error al buscar lugares:', error));
+            } else {
+                console.error('Error al buscar lugares:', status);
+            }
+        });
     }
 
     // Función para mostrar los resultados de búsqueda en el listado
     function showResults(results) {
-        let resultsList = document.getElementById('searchResults');
-        resultsList.innerHTML = '';  // Limpiar resultados anteriores
+        searchResults.innerHTML = '';  // Limpiar resultados anteriores
         if (results.length > 0) {
             results.forEach(result => {
                 let listItem = document.createElement('li');
                 listItem.classList.add('list-group-item');
-                listItem.textContent = result.place_name;
+                listItem.textContent = result.name;
                 listItem.addEventListener('click', function() {
-                    // Al hacer clic en un resultado, redirigir a la página de rutas
-                    window.location.href = `/buscar_rutas?destination=${encodeURIComponent(result.place_name)}`;
+                    destinationInput.value = result.name;
+                    searchResults.style.display = 'none';
                 });
-                resultsList.appendChild(listItem);
+                searchResults.appendChild(listItem);
             });
-            resultsList.style.display = 'block';  // Mostrar la lista de resultados
+            searchResults.style.display = 'block';  // Mostrar la lista de resultados
         } else {
-            resultsList.style.display = 'none';  // Ocultar la lista si no hay resultados
+            searchResults.style.display = 'none';  // Ocultar la lista si no hay resultados
         }
     }
 
-    // Función para ocultar los resultados
-    function hideResults() {
-        document.getElementById('searchResults').style.display = 'none';
+    // Función para calcular la ruta entre la ubicación actual y el destino
+    function calculateRoute() {
+        getCurrentLocation().then(origin => {
+            let destination = destinationInput.value;
+
+            if (!origin || !destination) {
+                alert('Por favor, ingresa un destino.');
+                return;
+            }
+
+            let request = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            directionsService.route(request, function(response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsRenderer.setDirections(response);
+                } else {
+                    console.error('Error al calcular la ruta:', status);
+                }
+            });
+        }).catch(error => {
+            alert('No se pudo obtener la ubicación actual.');
+        });
     }
 
-    // Evento de búsqueda mientras se escribe en el input
-    document.getElementById('searchInput').addEventListener('input', function() {
+    // Evento de búsqueda mientras se escribe en el input de destino
+    destinationInput.addEventListener('input', function() {
         let query = this.value;
-        if (query.length > 2) {  // Esperar hasta que se escriban más de 2 caracteres
+        if (query.length > 2) {  // Espera hasta que se escriban más de 2 caracteres
             searchLocations(query);
         } else {
-            hideResults();
+            searchResults.style.display = 'none';  // Ocultar los resultados si no hay query
         }
     });
 

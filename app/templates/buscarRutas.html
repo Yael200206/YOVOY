@@ -1,8 +1,4 @@
-
-
-
 {% extends "layout.html" %}
-
 
 {% block content %}
 <!DOCTYPE html>
@@ -62,14 +58,16 @@
 </head>
 <body>
 
-
     <!-- Contenido dinámico -->
     <main class="container mt-5">
         <h3>Destino: {{ destination }}</h3>
         <h4>Ruta desde {{ origin }}</h4>
 
         <div class="mb-3">
-            <input id="origin" type="text" class="form-control" placeholder="Origen" value="{{ origin }}">
+            <div class="input-group">
+                <input id="origin" type="text" class="form-control" placeholder="Origen" value="{{ origin }}">
+                <button class="btn btn-secondary" onclick="useCurrentLocation()">Ubicación Actual</button>
+            </div>
             <input id="destination" type="text" class="form-control mt-2" placeholder="Destino" value="{{ destination }}">
         </div>
         <button class="btn btn-primary" onclick="calculateRoute()">Mostrar Ruta</button>
@@ -99,6 +97,7 @@
         let map1, map2;
         let directionsService;
         let directionsRenderer1, directionsRenderer2;
+        let currentCoords = { lat: 0, lng: 0 }; // Almacena las coordenadas actuales
 
         function initMap() {
             // Mapa 1 - Menos Transbordos
@@ -123,9 +122,31 @@
             new google.maps.places.Autocomplete(document.getElementById("destination"));
         }
 
+        function useCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    currentCoords = { lat: position.coords.latitude, lng: position.coords.longitude };
+
+                    // Establecer el valor del input "origin" como "Ubicación Actual"
+                    document.getElementById("origin").value = "Ubicación Actual";
+
+                    // Generar la ruta usando las coordenadas actuales
+                    calculateRoute();
+                }, function() {
+                    alert("No se pudo obtener la ubicación actual.");
+                });
+            } else {
+                alert("La geolocalización no es compatible con este navegador.");
+            }
+        }
+
         function calculateRoute() {
             let origin = document.getElementById("origin").value;
             let destination = document.getElementById("destination").value;
+
+            if (origin === "Ubicación Actual" && currentCoords.lat !== 0 && currentCoords.lng !== 0) {
+                origin = new google.maps.LatLng(currentCoords.lat, currentCoords.lng); // Usar las coordenadas actuales
+            }
 
             if (!origin || !destination) {
                 alert("Por favor, ingresa ambas ubicaciones");
