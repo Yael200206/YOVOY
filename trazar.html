@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta de Paradas de Camión en Aguascalientes</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; width: 100%; }
+    </style>
+</head>
+<body>
+    <h2>Ruta de Paradas de Camión en Aguascalientes</h2>
+    <textarea id="addressInput" placeholder="Ingrese las paradas de camión, separadas por saltos de línea" rows="10" cols="50"></textarea>
+    <button onclick="processAddresses()">Cargar Paradas</button>
+    <button onclick="traceRoute()">Trazar Ruta</button>
+    <ul id="addressList"></ul>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([21.88234, -102.28259], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        var addresses = [];
+        var markers = [];
+        var routeLayer;
+
+        function processAddresses() {
+            var input = document.getElementById("addressInput").value;
+            // Se separan las direcciones por saltos de línea
+            addresses = input.split(/\n/).map(addr => addr.trim()).filter(addr => addr !== "");
+            document.getElementById("addressList").innerHTML = "";
+            addresses.forEach(addr => {
+                var listItem = document.createElement("li");
+                listItem.textContent = addr;
+                document.getElementById("addressList").appendChild(listItem);
+            });
+        }
+
+        function traceRoute() {
+            if (addresses.length < 2) {
+                alert("Agrega al menos dos paradas para trazar una ruta.");
+                return;
+            }
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+            if (routeLayer) {
+                map.removeLayer(routeLayer);
+            }
+            geocodeAddresses(0, []);
+        }
+
+        function geocodeAddresses(index, coords) {
+            if (index >= addresses.length) {
+                fetchRoute(coords);
+                return;
+            }
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${addresses[index]}, Aguascalientes, Mexico`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var lat = parseFloat(data[0].lat);
+                        var lon = parseFloat(data[0].lon);
+                        var coord = [lon, lat];
+                        coords.push(coord);
+                        var marker = L.marker([lat, lon]).addTo(map).bindPopup(addresses[index]);
+                        markers.push(marker);
+                    }
+                    geocodeAddresses(index + 1, coords);
+                })
+                .catch(error => console.log("Error en la geocodificación: ", error));
+        }
+
+        function fetchRoute(coords) {
+            if (coords.length < 2) return;
+            var coordString = coords.map(c => c.join(",")).join(";");
+            var url = `https://router.project-osrm.org/route/v1/driving/${coordString}?overview=full&geometries=geojson`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var routeCoords = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+                    routeLayer = L.polyline(routeCoords, { color: 'blue' }).addTo(map);
+                })
+                .catch(error => console.log("Error en la ruta: ", error));
+        }
+    </script>
+</body>
+</html>
