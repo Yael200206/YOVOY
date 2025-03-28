@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - Aplicación de Rutas de Autobús</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1E90FF;
+            padding: 15px;
+            color: white;
+            text-align: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        h1, h2 {
+            color: #1E90FF;
+        }
+
+        /* Estilo para la sección de login */
+        .login-section {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-section input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-section button {
+            background-color: #1E90FF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-section button:hover {
+            background-color: #4682b4;
+        }
+
+        /* Estilo para la sección de configuración */
+        .configuracion {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .configuracion select, .configuracion input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .configuracion button {
+            background-color: #1E90FF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .configuracion button:hover {
+            background-color: #4682b4;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: #1E90FF;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Configuración de la Aplicación</h1>
+        <nav>
+            <ul>
+                <li><a href="/inicio">Inicio</a></li>
+                <li><a href="/rutas">Rutas</a></li>
+                <li><a href="/configuracion">Configuración</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="login-section">
+        <h2>Iniciar Sesión</h2>
+        <form action="/login" method="POST">
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" placeholder="Ingresa tu usuario" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
+
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </section>
+
+    <section class="configuracion">
+        <h2>Configuraciones de Ruta</h2>
+        <form action="/guardar-configuracion" method="POST">
+            <label for="zona">Selecciona una Zona:</label>
+            <select id="zona" name="zona">
+                <option value="norte">Zona Norte</option>
+                <option value="sur">Zona Sur</option>
+                <option value="este">Zona Este</option>
+                <option value="oeste">Zona Oeste</option>
+            </select>
+
+            <label for="horarios">Horarios de autobús:</label>
+            <input type="text" id="horarios" name="horarios" placeholder="Ej. 08:00 AM - 10:00 PM" required>
+
+            <button type="submit">Guardar Configuración</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Aplicación de Rutas de Autobús. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
+{% endblock %}

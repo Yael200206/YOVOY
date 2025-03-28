@@ -26,6 +26,12 @@ def rutas():
 @app.route('/reportes')
 def resportes():
     return render_template('reportes.html')
+
+@app.route('/config')
+def config():
+    return render_template('config.html')
+
+
 @app.route('/recargas')
 def puntos_recarga():
     file_path = r'C:\Users\XOCEA\OneDrive\Documentos\YOVOY\app\static\puntosRecarga.json'
