@@ -31,30 +31,42 @@ def resportes():
 def config():
     return render_template('config.html')
 
-
 @app.route('/recargas')
 def puntos_recarga():
-    file_path = r'C:\Users\XOCEA\OneDrive\Documentos\YOVOY\app\static\puntosRecarga.json'
-    if not os.path.exists(file_path):
-        return jsonify({"error": "Archivo puntosRecarga.json no encontrado"}), 404
+    url = 'https://raw.githubusercontent.com/Yael200206/YOVOY/main/app/static/puntosRecarga.json'  # Enlace raw del archivo JSON
     
-    with open(file_path, 'r', encoding='utf-8') as file:
-        data = json.load(file)
+    try:
+        # Realizamos una solicitud GET a la URL
+        response = requests.get(url)
+        
+        # Verificamos si la solicitud fue exitosa
+        if response.status_code == 200:
+            data = response.json()  # Parseamos el JSON de la respuesta
+        else:
+            return jsonify({"error": f"Error al obtener el archivo JSON: {response.status_code}"}), 404
+
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": f"Error en la solicitud: {str(e)}"}), 500
     
     return render_template('recargas.html', puntos=data)
-
 @app.route('/api/puntos_recarga')
 def api_puntos_recarga():
-    file_path = os.path.join('static', 'puntosRecarga.json')
-    file_path=r"C:\Users\XOCEA\OneDrive\Documentos\YOVOY\app\static\puntosRecarga.json"
-    if not os.path.exists(file_path):
-        return jsonify({"error": "Archivo puntosRecarga.json no encontrado"}), 404
+    url = 'https://raw.githubusercontent.com/Yael200206/YOVOY/main/app/static/puntosRecarga.json'  # Enlace raw del archivo JSON
+    
+    try:
+        # Realizamos una solicitud GET a la URL
+        response = requests.get(url)
+        
+        # Verificamos si la solicitud fue exitosa
+        if response.status_code == 200:
+            data = response.json()  # Parseamos el JSON de la respuesta
+        else:
+            return jsonify({"error": f"Error al obtener el archivo JSON: {response.status_code}"}), 404
 
-    with open(file_path, 'r', encoding='utf-8') as file:
-        data = json.load(file)
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": f"Error en la solicitud: {str(e)}"}), 500
     
     return jsonify(data)
-
 
 # Ruta para la página de búsqueda de rutas
 @app.route('/buscar_rutas', methods=['GET'])

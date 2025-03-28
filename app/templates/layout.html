@@ -10,7 +10,14 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <!-- Boxicons CSS -->
     <link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <!--  UserWay -->
+
+    <script src="https://cdn.userway.org/widget.js"></script>
+
     <style>
+  
+
+
         .hero {
             background: linear-gradient(rgba(42, 45, 132, 0.8), rgba(42, 45, 132, 0.8)), url('background.jpg');
             background-size: cover;
@@ -50,6 +57,35 @@
         .fav-location .btn:hover {
             opacity: 0.8;
         }
+
+        .navbar .navbar-expand-lg .navbar-dark {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* En pantallas grandes, la barra de navegación estará arriba */
+@media (min-width: 768px) {
+    .navbar .navbar-expand-lg .navbar-dark  {
+        top: 0;
+    }
+}
+
+/* En dispositivos móviles, la barra de navegación estará abajo */
+@media (max-width: 767px) {
+    .navbar .navbar-expand-lg .navbar-dark  {
+        bottom: 0;
+        top: auto;
+        left: 0;
+        right: 0;
+    }
+
+    /* Para evitar que el contenido quede cubierto por la navbar */
+    body {
+        padding-bottom: 56px; /* Ajusta según la altura de la navbar */
+    }
+}
+
     </style>
 </head>
 <body>

@@ -90,7 +90,7 @@
       color: #e2e2e2;
       width: 100%;
     }
-    </style>
+</style>
 <div class="container">
     <h1>Recarga de Saldo</h1>
     
@@ -227,19 +227,20 @@
                   .bindPopup("<b>Tu ubicación actual</b>")
                   .openPopup();
 
-              // Mostrar todos los puntos de recarga en el mapa
+              // Mostrar todos los puntos de recarga en el mapa con una imagen personalizada
               puntosRecarga.forEach(punto => {
-                  // Usamos un marcador con color personalizado (por ejemplo, rojo)
-                  L.marker([punto.latitud, punto.longitud], {
-                      icon: L.icon({
-                          iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png', // Icono por defecto
-                          iconSize: [25, 41],
-                          iconAnchor: [12, 41],
-                          popupAnchor: [1, -34],
-                          shadowSize: [41, 41]
-                      })
-                  }).addTo(map)
-                  .bindPopup(`<b>Punto de Recarga</b><br>${punto.direccion}`);
+                  // Usamos una imagen personalizada en lugar del marcador estándar
+                  const customIcon = L.icon({
+                      iconUrl: 'https://example.com/tu_imagen_de_marcador.png', // URL de tu imagen
+                      iconSize: [32, 32], // Tamaño de la imagen
+                      iconAnchor: [16, 32], // El punto de anclaje del icono
+                      popupAnchor: [0, -32] // Donde se muestra el popup
+                  });
+
+                  // Crear un marcador con la imagen personalizada
+                  L.marker([punto.latitud, punto.longitud], { icon: customIcon })
+                      .addTo(map)
+                      .bindPopup(`<b>Punto de Recarga</b><br>${punto.direccion}`);
               });
 
           }, function() {
@@ -250,6 +251,5 @@
       }
   }
 </script>
-
 
 {% endblock %}
