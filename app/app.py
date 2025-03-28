@@ -6,7 +6,7 @@ import os
 # Token de Mapbox (reemplázalo por tu propio token)
 MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiaGlyYW0wNjAyMjAiLCJhIjoiY204cGx2MG53MGM2eDJqb21ud2h1enIwOCJ9.nd8HgkDj3SEJlr-oQY8ufg'
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 # Ruta principal que muestra la página inicial
 @app.route('/')
