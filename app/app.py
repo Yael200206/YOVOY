@@ -12,12 +12,37 @@ app = Flask(__name__, static_folder='static')
 @app.route('/')
 def index():
     return render_template('index.html')
-# Ruta principal que muestra la página inicial
-@app.route('/gif')
-def gif():
 
+
+# Ruta principal que muestra la página inicial
+@app.route('/<ruta_id>/gif')
+def gif(ruta_id):
+    url = "https://raw.githubusercontent.com/Yael200206/YOVOY/main/Rutas.json"
+    response = requests.get(url)
     
-    return render_template('gif.html')
+    if response.status_code == 200:
+        rutas_data = response.json()
+    else:
+        rutas_data = {"routes": []}  # Aseguramos que siempre haya una lista
+
+    # Buscar la ruta con el ID dado
+    ruta_seleccionada = next((ruta for ruta in rutas_data["routes"] if ruta["id"] == ruta_id), None)
+
+    if ruta_seleccionada is None:
+        return "Ruta no encontrada", 404
+
+    # Extraer origen y destino desde el "name"
+    nombre_ruta = ruta_seleccionada["name"]
+    partes = nombre_ruta.split(" - ", 1)  # Dividir por el guion y espacio
+    
+    origen = partes[0].split(" ", 1)[1] if len(partes) > 1 else "Desconocido"
+    destino = partes[1] if len(partes) > 1 else "Desconocido"
+
+    # Agregar origen y destino al diccionario de la ruta
+    ruta_seleccionada["origen"] = origen
+    ruta_seleccionada["destino"] = destino
+
+    return render_template('gif.html', ruta=ruta_seleccionada)
 
 
 # Ruta para mostrar la página de la casa
@@ -25,10 +50,23 @@ def gif():
 def home():
     return render_template('house.html')
 
-# Ruta para mostrar la página de la casa
+
 @app.route('/rutas')
 def rutas():
-    return render_template('rutas.html')
+    # Obtener el archivo JSON desde la URL de GitHub
+    url = "https://raw.githubusercontent.com/Yael200206/YOVOY/main/Rutas.json"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        # Si la respuesta es exitosa (200), cargar el contenido JSON
+        rutas_data = response.json()
+    else:
+        # Si no se obtiene el JSON correctamente, devolver un diccionario vacío
+        rutas_data = {}
+    print(rutas_data)
+
+    # Pasar el diccionario con los datos a la plantilla
+    return render_template('rutas.html', rutas=rutas_data)
 
 @app.route('/reportes')
 def resportes():
