@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RutAgs</title>
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Boxicons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <!--  UserWay -->
+
+    <script src="https://cdn.userway.org/widget.js"></script>
+
+    <style>
+  
+
+
+        .hero {
+            background: linear-gradient(rgba(42, 45, 132, 0.8), rgba(42, 45, 132, 0.8)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+        .fav-location {
+            margin-top: 20px;
+        }
+        .fav-location .btn {
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+        .fav-location .btn i {
+            margin-right: 8px;
+        }
+        .fav-location .btn-home {
+            background-color: #1E90FF;
+            color: white;
+        }
+        .fav-location .btn-work {
+            background-color: #4682B4;
+            color: white;
+        }
+        .fav-location .btn-add {
+            background-color: #5F9EA0;
+            color: white;
+        }
+        .fav-location .btn:hover {
+            opacity: 0.8;
+        }
+
+        .navbar .navbar-expand-lg .navbar-dark {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* En pantallas grandes, la barra de navegación estará arriba */
+@media (min-width: 768px) {
+    .navbar .navbar-expand-lg .navbar-dark  {
+        top: 0;
+    }
+}
+
+/* En dispositivos móviles, la barra de navegación estará abajo */
+@media (max-width: 767px) {
+    .navbar .navbar-expand-lg .navbar-dark  {
+        bottom: 0;
+        top: auto;
+        left: 0;
+        right: 0;
+    }
+
+    /* Para evitar que el contenido quede cubierto por la navbar */
+    body {
+        padding-bottom: 56px; /* Ajusta según la altura de la navbar */
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2A2D84;">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/house">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo V" style="height: 40px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/house">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/rutas">Rutas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/recargas">Recargas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/reportes">Reportes</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="/config">Configuracion</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido dinámico -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register("{{ url_for('static', filename='service-worker.js') }}")
+              .then((registration) => {
+                console.log('Service Worker registrado con éxito:', registration);
+              })
+              .catch((error) => {
+                console.log('Error al registrar el Service Worker:', error);
+              });
+          });
+        }
+      </script>
+      
+</body>
+</html>

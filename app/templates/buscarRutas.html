@@ -154,8 +154,8 @@
             }
 
             let now = new Date();
-            let nextDay13 = new Date(now.setDate(now.getDate() + 1));
-            nextDay13.setHours(13, 0, 0, 0); // Ajustar a las 13:00 del día siguiente
+            let nextDay13 = new Date(now.setDate(now.getDate() ));
+
 
             let request1 = {
                 origin: origin,
