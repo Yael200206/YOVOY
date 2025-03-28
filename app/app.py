@@ -15,6 +15,8 @@ def index():
 # Ruta principal que muestra la página inicial
 @app.route('/gif')
 def gif():
+
+    
     return render_template('gif.html')
 
 

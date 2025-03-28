@@ -1,0 +1,225 @@
+{
+    "routes": [
+      {
+        "id": "1263",
+        "name": "R-1 Margaritas - Vicente Guerrero",
+        "type": "Ruta"
+      },
+      {
+        "id": "1272",
+        "name": "R-10 Santa Mónica - Paseos de Aguascalientes",
+        "type": "Ruta"
+      },
+      {
+        "id": "1273",
+        "name": "R-11 Jesús María - Santa Mónica",
+        "type": "Ruta"
+      },
+      {
+        "id": "1274",
+        "name": "R-12 Fracc. Vicente Guerrero - Fracc. Lomas del Ajedrez",
+        "type": "Ruta"
+      },
+      {
+        "id": "1275",
+        "name": "R-14 Fracc. Lomas del Ajedrez - Fracc. Vicente Guerrero",
+        "type": "Ruta"
+      },
+      {
+        "id": "1276",
+        "name": "R-15 Fracc. Bellavista - Pocitos",
+        "type": "Ruta"
+      },
+      {
+        "id": "1277",
+        "name": "R-16 Fracc. Bellavista - Hacienda Nueva",
+        "type": "Ruta"
+      },
+      {
+        "id": "1278",
+        "name": "R-18 Lomas del Ajedrez - Circuito U.A.A.",
+        "type": "Ruta"
+      },
+      {
+        "id": "1279",
+        "name": "R-19 Fracc. Vistas de Oriente - Guadalupe González U.A.A",
+        "type": "Ruta"
+      },
+      {
+        "id": "1264",
+        "name": "R-2 Salto de Ojocaliente - Valle de los Cactus",
+        "type": "Ruta"
+      },
+      {
+        "id": "1280",
+        "name": "R-20 Fracc. Ojocaliente I - Circuito Av. De la Convección",
+        "type": "Ruta"
+      },
+      {
+        "id": "1281",
+        "name": "R-21 Fracc. Miradores - Ciudad Industrial",
+        "type": "Ruta"
+      },
+      {
+        "id": "1282",
+        "name": "R-23-23B Fracc. Villas de Ntra. Sra. de la Asunción - Eaton/Los Arquitos",
+        "type": "Ruta"
+      },
+      {
+        "id": "1283",
+        "name": "R-24 Fracc. Vistas de Oriente - Los Negritos",
+        "type": "Ruta"
+      },
+      {
+        "id": "1284",
+        "name": "R-25 Fracc. Salto de Ojocaliente - Universidad Tecnológica",
+        "type": "Ruta"
+      },
+      {
+        "id": "1285",
+        "name": "R-27 Fracc. Vicente Guerrero - Fracc. Cactus",
+        "type": "Ruta"
+      },
+      {
+        "id": "1286",
+        "name": "R-28 Jesus María - Ciudad Industrial",
+        "type": "Ruta"
+      },
+      {
+        "id": "1287",
+        "name": "R-29 Fracc. Lomas del Ajedrez - Centro",
+        "type": "Ruta"
+      },
+      {
+        "id": "1265",
+        "name": "R-3 Torre Molinos - Santa Mónica",
+        "type": "Ruta"
+      },
+      {
+        "id": "1288",
+        "name": "R-30 Fracc. Villas de Ntra. Sra. de la Asunción - Fracc. Martínez Domínguez",
+        "type": "Ruta"
+      },
+      {
+        "id": "1289",
+        "name": "R-31 Santa Mónica - Cumbres III",
+        "type": "Ruta"
+      },
+      {
+        "id": "1290",
+        "name": "R-33 Jesus María - Ciudad Industrial",
+        "type": "Ruta"
+      },
+      {
+        "id": "1291",
+        "name": "R-34 Fracc. Villas de Ntra. Sra. de la Asunción - UPA",
+        "type": "Ruta"
+      },
+      {
+        "id": "1292",
+        "name": "R-35 Fracc. Lomas del Ajedrez - Guadalupe González",
+        "type": "Ruta"
+      },
+      {
+        "id": "1293",
+        "name": "R-36 Fracc. Lomas del Ajedrez - Centro",
+        "type": "Ruta"
+      },
+      {
+        "id": "1294",
+        "name": "R-37 Fracc. Villas de Ntra. Sra. de la Asunción - Fracc. San Antonio",
+        "type": "Ruta"
+      },
+      {
+        "id": "1295",
+        "name": "R-38 Fracc. Vicente Guerrero - Paso Blanco",
+        "type": "Ruta"
+      },
+      {
+        "id": "1296",
+        "name": "R-39 El Conejal - Centro",
+        "type": "Ruta"
+      },
+      {
+        "id": "1266",
+        "name": "R-4 Jesús María - Santa Mónica",
+        "type": "Ruta"
+      },
+      {
+        "id": "1297",
+        "name": "R-40 Fracc. Ojocaliente I - Circuito Av. Aguascalientes",
+        "type": "Ruta"
+      },
+      {
+        "id": "1298",
+        "name": "R-41 Fracc. Ojocaliente I - Circuito Penal",
+        "type": "Ruta"
+      },
+      {
+        "id": "1299",
+        "name": "R-42 Fracc. Bellavista - Ciudad Industrial",
+        "type": "Ruta"
+      },
+      {
+        "id": "1300",
+        "name": "R-43 Fracc. Villas de Ntra. Sra. de la Asunción - Lomas de Nueva York - Cañada Grande",
+        "type": "Ruta"
+      },
+      {
+        "id": "1301",
+        "name": "R-44 Fracc. Bellavista - U.P.A.",
+        "type": "Ruta"
+      },
+      {
+        "id": "1302",
+        "name": "R-45 Fracc. Salto de Ojocaliente - Guadalupe González - U.A.A.",
+        "type": "Ruta"
+      },
+      {
+        "id": "1303",
+        "name": "R-46 Fracc. Vicente Guerrero - Calvillito",
+        "type": "Ruta"
+      },
+      {
+        "id": "1304",
+        "name": "R-47 Fracc. Lomas del Ajedrez - Centro",
+        "type": "Ruta"
+      },
+      {
+        "id": "1305",
+        "name": "R-48 Fracc. Bellavista - Centro",
+        "type": "Ruta"
+      },
+      {
+        "id": "1267",
+        "name": "R-5 Fracc. Vicente Guerrero - La Ribera",
+        "type": "Ruta"
+      },
+      {
+        "id": "1306",
+        "name": "R-50 Jesus María - Universidad Tecnológica",
+        "type": "Ruta"
+      },
+      {
+        "id": "1268",
+        "name": "R-6 Jesús María - Santa Mónica",
+        "type": "Ruta"
+      },
+      {
+        "id": "1269",
+        "name": "R-7 Fracc. Villas las Palmas - Centro",
+        "type": "Ruta"
+      },
+      {
+        "id": "1270",
+        "name": "R-8 Fracc. Ntra. Señora de la Asunción - Col. Martínez Domínguez",
+        "type": "Ruta"
+      },
+      {
+        "id": "1271",
+        "name": "R-9 Santa Mónica - Fracc. Los Laureles",
+        "type": "Ruta"
+      }
+    ]
+  }
+  
