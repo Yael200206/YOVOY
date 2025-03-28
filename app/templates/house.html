@@ -61,16 +61,18 @@
         #searchResults .list-group-item {
             cursor: pointer;
         }
+        .titulo{
+            color:aliceblue;
+        }
     </style>
 
     <!-- Barra de búsqueda -->
     <section class="hero">
-        <h1>¿A dónde quieres ir?</h1>
+        <h1 class="titulo">¿A dónde quieres ir?</h1>
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="searchInput" placeholder="Escribe tu destino...">
             <button class="btn btn-primary" type="button" id="searchButton">Buscar</button>
         </div>
-        <ul id="searchResults" class="list-group"></ul>  <!-- Lista de resultados -->
     </section>
 
     <!-- Lugares favoritos -->

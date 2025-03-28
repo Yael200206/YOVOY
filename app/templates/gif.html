@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ruta de Autobús 01 - Aguascalientes</title>
+    <style>
+      #map {
+        height: 100%;
+        width: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Trayecto de la Ruta de Autobús 01</h1>
+    <div id="map"></div>
+    
+    <!-- Cargar el script de Google Maps correctamente -->
+    <script>
+      function initMap() {
+        // Crear el mapa centrado en Aguascalientes
+        let map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: { lat: 21.8787, lng: -102.2916 } // Coordenadas de Aguascalientes
+        });
+
+        let directionsService = new google.maps.DirectionsService();
+        let directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+
+        // Definir la ruta de la línea de autobús (por ejemplo, coordenadas ficticias)
+        const request = {
+          origin: { lat: 21.98981798337196, lng: -102.29379697856547 }, // Punto de inicio
+          destination: { lat: 21.84984746287403, lng: -102.31656299462232 }, // Punto de destino
+          travelMode: google.maps.TravelMode.TRANSIT, // Modo de transporte: Autobús
+          transitOptions: {
+            departureTime: new Date(),
+            modes: [google.maps.TransitMode.BUS], // Solo autobuses
+            routePreference: google.maps.TransitRoutePreference.FEW_TRANSFERS // Minimizar las transferencias
+          }
+        };
+
+        // Solicitar direcciones
+        directionsService.route(request, function(response, status) {
+          if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+          } else {
+            alert('No se pudo trazar la ruta: ' + status);
+          }
+        });
+      }
+    </script>
+
+    <!-- Cargar el script de Google Maps con la clave API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCaTfrpS9pYoUrezV6CKF5QrPaxlJKhRQ&callback=initMap&libraries=places" async defer></script>
+  </body>
+</html>

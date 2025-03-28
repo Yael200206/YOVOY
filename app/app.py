@@ -12,6 +12,11 @@ app = Flask(__name__, static_folder='static')
 @app.route('/')
 def index():
     return render_template('index.html')
+# Ruta principal que muestra la página inicial
+@app.route('/gif')
+def gif():
+    return render_template('gif.html')
+
 
 # Ruta para mostrar la página de la casa
 @app.route('/house')
