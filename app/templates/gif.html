@@ -11,6 +11,26 @@
         height: 100%;
         margin: 0;
       }
+
+      /* Ocultar los cuadros de información (div con información de autobús) */
+      .gm-style-iw {
+        display: none !important;
+      }
+
+      /* Ocultar todo el contenido relacionado con el transporte público y las ventanas emergentes */
+      .gm-style-iw-c {
+        display: none !important;
+      }
+
+      /* Ocultar cualquier control o elemento relacionado con el transporte público */
+      .gm-style-cc {
+        display: none !important;
+      }
+
+      /* Estilo adicional para ocultar cualquier texto que pueda estar relacionado con los marcadores de tránsito */
+      .gm-style .gm-style-iw div {
+        display: none !important;
+      }
     </style>
   </head>
   <body>
@@ -19,37 +39,114 @@
     
     <!-- Cargar el script de Google Maps correctamente -->
     <script>
+      let map;
+      let directionsService;
+      let directionsRenderer;
+      let routePath;  // Para almacenar las coordenadas de la ruta
+      let circleMarkers = [];
+      let animationIndexes = []; // 5 círculos, cada uno con su propio índice de animación
+      let geocoder;
+
       function initMap() {
         // Crear el mapa centrado en Aguascalientes
-        let map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
           center: { lat: 21.8787, lng: -102.2916 } // Coordenadas de Aguascalientes
         });
 
-        let directionsService = new google.maps.DirectionsService();
-        let directionsRenderer = new google.maps.DirectionsRenderer();
-        directionsRenderer.setMap(map);
-
-        // Definir la ruta de la línea de autobús (por ejemplo, coordenadas ficticias)
-        const request = {
-          origin: { lat: 21.98981798337196, lng: -102.29379697856547 }, // Punto de inicio
-          destination: { lat: 21.84984746287403, lng: -102.31656299462232 }, // Punto de destino
-          travelMode: google.maps.TravelMode.TRANSIT, // Modo de transporte: Autobús
-          transitOptions: {
-            departureTime: new Date(),
-            modes: [google.maps.TransitMode.BUS], // Solo autobuses
-            routePreference: google.maps.TransitRoutePreference.FEW_TRANSFERS // Minimizar las transferencias
-          }
-        };
-
-        // Solicitar direcciones
-        directionsService.route(request, function(response, status) {
-          if (status === 'OK') {
-            directionsRenderer.setDirections(response);
-          } else {
-            alert('No se pudo trazar la ruta: ' + status);
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer({
+          suppressMarkers: false,  // Evitar la creación de los marcadores por defecto
+          polylineOptions: {
+            strokeColor: '#0000FF',  // Línea azul
+            strokeWeight: 4
           }
         });
+        directionsRenderer.setMap(map);
+
+        geocoder = new google.maps.Geocoder();
+
+        // Convertir direcciones en coordenadas
+        geocoder.geocode({ address: 'Vicente Guerrero, Aguascalientes' }, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            const origin = results[0].geometry.location;
+
+            geocoder.geocode({ address: 'Margaritas, Aguascalientes' }, function(results, status) {
+              if (status === google.maps.GeocoderStatus.OK) {
+                const destination = results[0].geometry.location;
+
+                // Definir la ruta de la línea de autobús utilizando coordenadas obtenidas
+                const request = {
+                  origin: origin,  // Punto de inicio
+                  destination: destination,  // Punto de destino
+                  travelMode: google.maps.TravelMode.TRANSIT, // Modo de transporte: Autobús
+                  transitOptions: {
+                    departureTime: new Date(),
+                    modes: [google.maps.TransitMode.BUS] // Solo autobuses
+                  }
+                };
+
+                // Solicitar direcciones
+                directionsService.route(request, function(response, status) {
+                  if (status === 'OK') {
+                    directionsRenderer.setDirections(response);
+                    routePath = response.routes[0].overview_path; // Obtener la ruta generada
+                    createMovingCircles(routePath);  // Crear los círculos en la ruta
+                    animateCircles();  // Iniciar la animación
+                  } else {
+                    alert('No se pudo trazar la ruta: ' + status);
+                  }
+                });
+              } else {
+                alert('No se pudo geocodificar el destino: ' + status);
+              }
+            });
+          } else {
+            alert('No se pudo geocodificar el origen: ' + status);
+          }
+        });
+      }
+
+      function createMovingCircles(route) {
+        // Crear 5 círculos, distribuidos a lo largo de la ruta
+        const colors = ['red', 'yellow', 'green'];  // Colores disponibles para los círculos
+
+        for (let i = 0; i < 5; i++) {
+          let position = route[Math.floor(i * route.length / 5)]; // Dividir la ruta en 5 puntos
+          
+          // Seleccionar un color aleatorio de la lista de colores
+          let circleColor = colors[Math.floor(Math.random() * colors.length)];
+
+          let circle = new google.maps.Circle({
+            map: map,
+            center: position,
+            radius: 250,  // Aumentar el tamaño del círculo (radio más grande)
+            fillColor: circleColor,
+            fillOpacity: 0.6,
+            strokeColor: 'white',
+            strokeWeight: 2
+          });
+
+          circleMarkers.push(circle);  // Guardar los círculos
+          animationIndexes.push(Math.floor(i * route.length / 5));  // Inicializar el índice de animación
+        }
+      }
+
+      function animateCircles() {
+        setInterval(() => {
+          // Mover cada círculo a lo largo de la ruta
+          for (let i = 0; i < 5; i++) {
+            let currentIndex = animationIndexes[i];
+            let nextPositionIndex = (currentIndex + 1) % routePath.length;
+            let nextPosition = routePath[nextPositionIndex];
+
+            // Mover el círculo a la nueva posición
+            circleMarkers[i].setCenter(nextPosition);
+
+            // Actualizar el índice de animación para el siguiente ciclo
+            animationIndexes[i] = nextPositionIndex;
+          }
+        }, 300);  // Cada 300ms, mueve los círculos (ajustable)
       }
     </script>
 
