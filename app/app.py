@@ -1,8 +1,67 @@
 from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, redirect, url_for, render_template, flash
+
 import requests
 import json
 import os
+import pymysql
+import base64
+from flask import Flask, request, redirect, url_for, render_template
+from werkzeug.utils import secure_filename
+import os
 
+
+
+# Configuración para la carpeta de subida
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+
+
+# Conectar a la base de datos
+def connect():
+    return pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='rutags',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+
+# Función para guardar el reporte
+def save_report(bus_id, description, category, image_path=None):
+    try:
+        connection = connect()
+        with connection.cursor() as cursor:
+            
+            # Convertir imagen a base64
+            image_base64 = None
+            if image_path:
+                with open(image_path, "rb") as img_file:
+                    image_base64 = base64.b64encode(img_file.read()).decode('utf-8')
+
+            # Insertar el reporte
+            sql = """
+            INSERT INTO reportes (bus_id, description, category, image_base64)
+            VALUES (%s, %s, %s, %s)
+            """
+            cursor.execute(sql, (bus_id, description, category, image_base64))
+            connection.commit()
+            print("✅ Reporte guardado exitosamente.")
+    except Exception as e:
+        print(f"❌ Error al guardar el reporte: {e}")
+    finally:
+        connection.close()
+
+# Función para obtener los reportes
+def get_reports():
+    connection = connect()
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM reportes ORDER BY timestamp DESC")
+            return cursor.fetchall()
+    finally:
+        connection.close()
 # Token de Mapbox (reemplázalo por tu propio token)
 MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiaGlyYW0wNjAyMjAiLCJhIjoiY204cGx2MG53MGM2eDJqb21ud2h1enIwOCJ9.nd8HgkDj3SEJlr-oQY8ufg'
 
@@ -68,10 +127,73 @@ def rutas():
     # Pasar el diccionario con los datos a la plantilla
     return render_template('rutas.html', rutas=rutas_data)
 
-@app.route('/reportes')
-def resportes():
-    return render_template('reportes.html')
 
+@app.route('/reportes')
+def reportes():
+    reports = get_reports()  # Obtiene los reportes desde la base de datos
+    return render_template('reportes.html', reports=reports)
+
+
+# Verifica si la extensión del archivo es válida
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+
+def insert_report(bus_id, description, category, image_filename=None):
+    """Inserta un reporte con o sin imagen en la base de datos."""
+    connection = connect()
+    try:
+        with connection.cursor() as cursor:
+            if image_filename:
+                sql = """
+                INSERT INTO reportes (bus_id, description, category, image)
+                VALUES (%s, %s, %s, %s)
+                """
+                cursor.execute(sql, (bus_id, description, category, image_filename))
+            else:
+                sql = """
+                INSERT INTO reportes (bus_id, description, category)
+                VALUES (%s, %s, %s)
+                """
+                cursor.execute(sql, (bus_id, description, category))
+
+            connection.commit()
+    finally:
+        connection.close()
+ 
+# Ruta para subir reportes
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_report():
+    if request.method == 'POST':
+        bus_id = request.form['bus_id']
+        description = request.form['description']
+        category = request.form['category']
+
+        image_filename = None
+
+        # Verifica si hay imagen seleccionada
+        if 'image' in request.files:
+            file = request.files['image']
+
+            # Si hay archivo y es válido, lo sube
+            if file and file.filename != '' and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                image_filename = f"uploads/{filename}"  # Ruta relativa
+
+            # Si el archivo no es válido
+            elif file.filename != '':
+                flash('Formato de archivo no permitido', 'error')
+                return redirect(url_for('upload_report'))
+
+        # Inserta el reporte, con o sin imagen
+        insert_report(bus_id, description, category, image_filename)
+        flash('Reporte subido exitosamente', 'success')
+        return redirect(url_for('reportes'))
+
+    return render_template('re´prtes.html')
 @app.route('/config')
 def config():
     return render_template('config.html')
@@ -133,3 +255,4 @@ def buscar_rutas():
 
 if __name__ == '__main__':
     app.run(debug=True)
+app.secret_key = 'Pitulillo$1'

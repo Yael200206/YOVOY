@@ -2,7 +2,7 @@
 
 {% block content %}
 <style>
-     form {
+    form {
         background: white;
         padding: 20px;
         border-radius: 8px;
@@ -36,66 +36,150 @@
     button:hover {
         background-color: #4682B4;
     }
-    .route-list {
-        list-style-type: none;
-        padding: 0;
-        margin-top: 30px;
-    }
-    .route-item {
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 15px;
-        padding: 15px;
+    .checkbox-group {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 15px 0;
+    }
+    .checkbox-group label {
+        display: flex;
         align-items: center;
-    }
-    .route-item h4 {
-        margin: 0;
-        font-size: 18px;
-        color: #2A2D84;
-    }
-    .route-item a {
-        background-color: #1E90FF;
-        color: white;
-        text-decoration: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
+        justify-content: center;
+        background: #f0f8ff;
+        color: #1E90FF;
+        border: 2px solid #1E90FF;
+        border-radius: 8px;
+        padding: 12px 20px;
+        font-weight: bold;
+        font-size: 14px;
+        transition: 0.3s;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        width: calc(50% - 10px);
+        text-align: center;
     }
-    .route-item a:hover {
-        background-color: #4682B4;
+    .checkbox-group label:hover {
+        background: #1E90FF;
+        color: white;
+    }
+    .checkbox-group input {
+        display: none;
+    }
+    .checkbox-group input:checked + label {
+        background: #1E90FF;
+        color: white;
+        border: 2px solid #4682B4;
+        box-shadow: 0 0 8px rgba(30, 144, 255, 0.7);
+    }
+    .file-upload {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border: 2px dashed #1E90FF;
+        border-radius: 10px;
+        background: #f0f8ff;
+        padding: 40px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .file-upload:hover {
+        background: #e0f0ff;
+        border-color: #4682B4;
+    }
+    .file-upload input {
+        display: none;
+    }
+    .file-upload i {
+        font-size: 40px;
+        color: #1E90FF;
+        margin-bottom: 10px;
+    }
+    .file-upload span {
+        font-size: 16px;
+        color: #1E90FF;
+    }
+    .file-upload img {
+        max-width: 100%;
+        max-height: 150px;
+        margin-top: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 </style>
-    <h2>Subir Reporte</h2>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="bus_id">ID del Camión:</label>
-        <input type="text" name="bus_id" required>
-        <p><small>El ID del camión es el número que aparece en el lateral del autobús.</small></p>
 
-        <label for="description">Descripción:</label>
-        <textarea name="description" required></textarea>
+<h2>Subir Reporte</h2>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="bus_id">ID del Camión:</label>
+    <input type="text" name="bus_id" required>
+    <p><small>El ID del camión es el número que aparece en el lateral del autobús.</small></p>
 
-        <label for="image">Subir Imagen (Opcional):</label>
-        <input type="file" name="image">
+    <label for="description">Descripción:</label>
+    <textarea name="description" required></textarea>
 
-        <button type="submit">Enviar Reporte</button>
-    </form>
+    <label>Categoría:</label>
+    <div class="checkbox-group">
+        <input type="checkbox" id="unidad" name="category" value="unidad" onclick="toggleCheckbox(this)">
+        <label for="unidad">Unidad</label>
 
-    <h2>Reportes Subidos</h2>
-    <ul>
-        {% for report in reports %}
-            <li>
-                <strong>ID del Camión:</strong> {{ report.bus_id }} <br>
-                <strong>Descripción:</strong> {{ report.description }} <br>
-                <strong>Fecha y Hora:</strong> {{ report.timestamp }} <br>
-                {% if report.image %}
-                    <img src="{{ url_for('static', filename=report.image) }}" alt="Imagen del reporte" width="200">
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+        <input type="checkbox" id="operario" name="category" value="operario" onclick="toggleCheckbox(this)">
+        <label for="operario">Operario</label>
+
+        <input type="checkbox" id="paradero" name="category" value="paradero" onclick="toggleCheckbox(this)">
+        <label for="paradero">Paradero</label>
+
+        <input type="checkbox" id="otros" name="category" value="otros" onclick="toggleCheckbox(this)">
+        <label for="otros">Otros</label>
+    </div>
+
+    <label for="image">Subir Imagen (Opcional):</label>
+    <div class="file-upload" onclick="document.getElementById('image').click()">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <span>Haz clic para seleccionar o arrastra la imagen aquí</span>
+        <input type="file" id="image" name="image" onchange="previewImage(event)">
+        <img id="preview" src="#" alt="Vista previa" style="display: none;">
+    </div>
+
+    <button type="submit">Enviar Reporte</button>
+</form>
+
+<h2>Reportes Subidos</h2>
+<ul>
+    {% for report in reports %}
+        <li>
+            <strong>ID del Camión:</strong> {{ report.bus_id }} <br>
+            <strong>Descripción:</strong> {{ report.description }} <br>
+            <strong>Categoría:</strong> {{ report.category }} <br>
+            <strong>Fecha y Hora:</strong> {{ report.timestamp }} <br>
+            {% if report.image %}
+                <img src="{{ url_for('static', filename=report.image) }}" alt="Imagen del reporte" width="200">
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<script>
+    function toggleCheckbox(selected) {
+        const checkboxes = document.querySelectorAll('input[name="category"]');
+        checkboxes.forEach(checkbox => {
+            if (checkbox !== selected) {
+                checkbox.checked = false;
+            }
+        });
+    }
+
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const preview = document.getElementById('preview');
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 {% endblock %}
